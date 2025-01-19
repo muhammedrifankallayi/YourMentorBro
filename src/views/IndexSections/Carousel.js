@@ -22,16 +22,16 @@ import { Button, Container, Row, Col, UncontrolledCarousel } from "reactstrap";
 
 const items = [
   {
-    src: require("assets/img/theme/img-1-1200x1000.jpg"),
+    src: require("assets/img/theme/team-2-800x800.jpg"),
     altText: "",
-    caption: "",
-    header: "",
+    caption: "hfghdfh",
+    header: "hfghfg",
   },
   {
     src: require("assets/img/theme/img-2-1200x1000.jpg"),
     altText: "",
-    caption: "",
-    header: "",
+    caption: "gfdfdh",
+    header: "hfhdfh",
   },
 ];
 

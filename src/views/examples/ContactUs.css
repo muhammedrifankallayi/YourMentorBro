@@ -1,0 +1,39 @@
+.contact-card {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .contact-card h1 {
+    font-size: 28px;
+    font-weight: bold;
+  }
+  .contact-card i {
+    font-size: 24px;
+    color: #fd7e14;
+  }
+  .social-icons a {
+    color: #fff;
+    margin: 0 10px;
+    font-size: 18px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #fd7e14;
+    
+  }
+
+  .social-icons .bi{
+    color: white !important;
+    font-size: 12px;
+  }
+  .social-icons a:hover {
+    background-color: #e05b0c;
+  }
+
+  .cont-card-1{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }

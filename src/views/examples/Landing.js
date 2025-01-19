@@ -1,25 +1,13 @@
-/*!
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
 
-=========================================================
-* Argon Design System React - v1.1.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-design-system-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React,{useState} from "react";
 // nodejs library that concatenates classes
 import classnames from "classnames";
 import WebinarForm from "views/Modals/WebinarForm.js"; 
 import ContactForm from "views/Modals/ContactForm.js";
+import axios from "axios";
+import "./Landing.css"
 // reactstrap components
 import {
   Badge,
@@ -43,6 +31,7 @@ import CardsFooter from "components/Footers/CardsFooter.js";
 
 // index page sections
 import Download from "../IndexSections/Download.js";
+import toast from "react-hot-toast";
 
 class Landing extends React.Component {
 
@@ -50,8 +39,106 @@ class Landing extends React.Component {
     super(props);
     this.state = {
       showModal: false,
-      showContactModal:false
+      showContactModal:false,
+      Name: "",
+      Mobile: "",
+      Email: ""
     };
+  }
+
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value 
+    });
+  };
+
+  handleSubmit  =  async(e) =>{
+
+    
+    e.preventDefault();
+
+
+  let {Name,Email,Mobile} = this.state
+
+    let headers = new Headers();
+    
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    
+    headers.append('GET', 'POST', 'OPTIONS');
+    
+    const formData = new FormData();
+    formData.append("Name", Name);
+    formData.append("Mobile", Mobile);
+    formData.append("Email", Email);
+    
+    
+    if (!Name) {
+      toast.error("Name is required");
+      return;
+    }
+    if (!Mobile || !/^\d{10}$/.test(Mobile)) {
+      toast.error("Valid 10 digit mobile number is required");
+      return;
+    }
+    if (!Email || !/\S+@\S+\.\S+/.test(Email)) {
+      toast.error("Valid email is required");
+      return;
+    }
+    
+    const url = "https://script.google.com/macros/s/AKfycbwH02_gLAZixrWZjeP44SElEik36ny9vqb77r8wxeyNCd0Tlho1oCiN4PA0rP7DWxG-EQ/exec"
+    
+    await axios.post(`${url}?Name=${Name}&Mobile=${Mobile}&Email=${Email}&page=1`,formData,
+      { headers: headers}
+    ).then((res)=>{
+      this.resetState()
+    toast.success("Your reponse has been sent , our team will contact you shorly")
+   })
+  }
+
+
+  resetState = () => {
+    this.setState({
+      showModal: false,
+      showContactModal: false,
+      Name: "",
+      Mobile: "",
+      Email: ""
+    });
+  };
+
+  facultyData = [
+    {
+      name:"Radwan Rashiq",
+      job_title:"Full Stack Developer at Infosys and Founder of Mentor Bro",
+      img:require("assets/img/theme/team-1-800x800.jpg")
+    },
+    {
+      name:"Radwan Rashiq",
+      job_title:"Full Stack Developer at Infosys and Founder of Mentor Bro",
+      img:require("assets/img/theme/team-1-800x800.jpg")
+    },
+    {
+      name:"Radwan Rashiq",
+      job_title:"Full Stack Developer at Infosys and Founder of Mentor Bro",
+      img:require("assets/img/theme/team-1-800x800.jpg")
+    },
+    {
+      name:"Radwan Rashiq",
+      job_title:"Full Stack Developer at Infosys and Founder of Mentor Bro",
+       img:require("assets/img/theme/team-1-800x800.jpg")
+    },
+  ]
+
+
+  openGoogleForm = (e)=>{
+    e.preventDefault();
+
+    window.open("https://docs.google.com/forms/d/e/1FAIpQLSclBWzfoXyMZuKnr3rxDikG4pr7neDF1t5didxx5Rsh7ZbViw/viewform","_blank")
   }
 
   toggleModal = () => {
@@ -78,21 +165,32 @@ class Landing extends React.Component {
 
     return (
       <>
-        <DemoNavbar />
+       <div className="main-page" >
+       <DemoNavbar />
+       </div>
         <main ref="main">
           <div className="position-relative">
             {/* shape Hero */}
             <section className="section section-lg section-shaped pb-250">
               <div className="shape shape-style-1 shape-default">
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
+              <video
+    autoPlay
+    loop
+    muted
+    playsInline
+    style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      zIndex: -1,
+    }}
+  >
+    <source src={require("../../assets/videos/3130284-uhd_3840_2160_30fps.mp4")} type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
               </div>
               <Container className="py-lg-md d-flex">
                 <div className="col px-0">
@@ -124,25 +222,11 @@ class Landing extends React.Component {
                 </div>
               </Container>
               {/* SVG separator */}
-              <div className="separator separator-bottom separator-skew">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  preserveAspectRatio="none"
-                  version="1.1"
-                  viewBox="0 0 2560 100"
-                  x="0"
-                  y="0"
-                >
-                  <polygon
-                    className="fill-white"
-                    points="2560 0 2560 100 0 100"
-                  />
-                </svg>
-              </div>
+        
             </section>
             {/* 1st Hero Variation */}
           </div>
-          <section className="section section-lg pt-lg-0 mt--200">
+          <section className="section section-lg pt-lg-0 mt--200 course-cards">
             <Container>
               <Row className="justify-content-center">
                 <Col lg="12">
@@ -150,25 +234,28 @@ class Landing extends React.Component {
                     <Col lg="4">
                       <Card className="card-lift--hover shadow border-0">
                         <CardBody className="py-5">
-                          <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
-                            <i className="ni ni-check-bold" />
+                          <div className="icon icon-shape icon-shape-muted rounded-circle mb-4" style={{border:"1px solid #5e72e4"}}  >
+                            {/* <i className="ni ni-check-bold" /> */}
+                            <img  height={"25px"} width={"25px"} src="https://img.icons8.com/?size=100&id=123603&format=png&color=000000" ></img>
                           </div>
                           <h6 className="text-primary text-uppercase">
-                            MEAN & MERN Stack 
+                           M E R N
                           </h6>
                           <p className="description mt-3">
-                          The MEAN/MERN stack is a JavaScript-based framework for web development,
-                           consisting of MongoDB, Express.js, Angular/React, and Node.js, enabling 
-                           full-stack applications.
+                          Join our 8-month mentorship program and become an expert in the MERN stack 
+                          (MongoDB, Express.js, React.js, Node.js). Learn to build full-stack web applications 
+                          from scratch, mastering both front-end and back-end development. The course includes in-depth 
+                          training on data structures and algorithms, real-world project building, and industry best practices
+                           to prepare you for job interviews and a successful tech career.
                           </p>
                     
                           <Button
                             className="mt-4"
                             color="primary"
                             href="#pablo"
-                            onClick={(e) => e.preventDefault()}
+                            onClick={this.openGoogleForm}
                           >
-                            Learn more
+                            Enroll Now
                           </Button>
                         </CardBody>
                       </Card>
@@ -176,24 +263,27 @@ class Landing extends React.Component {
                     <Col lg="4">
                       <Card className="card-lift--hover shadow border-0">
                         <CardBody className="py-5">
-                          <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
-                            <i className="ni ni-istanbul" />
+                          <div className="icon icon-shape icon-shape rounded-circle mb-4" style={{border:"1px solid #2dce89"}} >
+                            {/* <i className="ni ni-istanbul" /> */}
+                            <img  height={"25px"} width={"25px"} src="https://img.icons8.com/?size=100&id=71257&format=png&color=000000" ></img>
                           </div>
                           <h6 className="text-success text-uppercase">
-                           Web Development With Python
+                         M E A N
                           </h6>
                           <p className="description mt-3">
-                          Python web development uses frameworks like Django, Flask, or FastAPI for scalable applications.
-                           It excels in backend tasks, API creation, templating, and high-performance web solutions.
+                          Prepare for a rewarding career in web development with our 8-month mentorship program focused on the MEAN stack 
+                          (MongoDB, Express.js, Angular, Node.js). This course offers comprehensive training in building scalable web applications, 
+                          combined with data structures, algorithms, and advanced problem-solving techniques.
+                           Designed to help you crack job interviews, this program ensures you're industry-ready.
                           </p>
                         
                           <Button
                             className="mt-4"
                             color="success"
                             href="#pablo"
-                            onClick={(e) => e.preventDefault()}
+                            onClick={this.openGoogleForm}
                           >
-                            Learn more
+                    Entroll Now
                           </Button>
                         </CardBody>
                       </Card>
@@ -201,24 +291,27 @@ class Landing extends React.Component {
                     <Col lg="4">
                       <Card className="card-lift--hover shadow border-0">
                         <CardBody className="py-5">
-                          <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
-                            <i className="ni ni-planet" />
+                          <div className="icon icon-shape icon-shape rounded-circle mb-4" style={{border:"1px solid #fb6340"}}>
+                            {/* <i className="ni ni-planet" /> */}
+                            <img  height={"25px"} width={"25px"} src="https://img.icons8.com/?size=100&id=13441&format=png&color=000000" ></img>
+                            
                           </div>
                           <h6 className="text-warning text-uppercase">
-                            Communication Skill
+                           Python DJango
                           </h6>
                           <p className="description mt-3">
-                          Communication skills involve the ability to effectively convey information, listen actively, 
-                          and interact clearly in both written and verbal forms. 
-                          It includes clarity, empathy, and adaptability.
+                          This 8-month mentorship program equips you with the skills to excel in Python development, focusing on the Django framework. 
+                          Learn to build robust web applications, design efficient databases, and solve complex problems using data structures and algorithms. 
+                          With personalized guidance, real-world projects, and job-oriented training,
+                           you'll be ready to secure a role in Python-driven industries.
                           </p>
                           <Button
                             className="mt-4"
                             color="warning"
                             href="#pablo"
-                            onClick={(e) => e.preventDefault()}
+                            onClick={this.openGoogleForm}
                           >
-                            Learn more
+                            Entroll Now
                           </Button>
                         </CardBody>
                       </Card>
@@ -228,6 +321,129 @@ class Landing extends React.Component {
               </Row>
             </Container>
           </section>
+
+
+
+
+
+          <section className="section section-lg">
+            <Container>
+              <Row className="row-grid align-items-center">
+                <Col className="order-md-2" md="6">
+                  <img
+                    alt="..."
+                    className="img-fluid floating"
+                    src={require("assets/img/theme/promo-1.png")}
+                  />
+                </Col>
+                <Col className="order-md-1" md="6">
+                  <div className="pr-md-5">
+                    <div className="icon icon-lg icon-shape icon-shape-success shadow rounded-circle mb-5">
+                      <i className="ni ni-settings-gear-65" />
+                    </div>
+                    <h3>Web Design From Zero to One</h3>
+                    <p>
+                    We will guide you in learning web design from scratch with our proven pathways.
+                     Our mentorship will help you to learn effectively, and through practice,
+                     you'll become capable of learning independently without assistance.
+                    </p>
+                    <ul className="list-unstyled mt-5">
+                      <li className="py-2">
+                        <div className="d-flex align-items-center">
+                          <div>
+                            <Badge
+                              className="badge-circle mr-3"
+                              color="success"
+                            >
+                              <i className="ni ni-settings-gear-65" />
+                            </Badge>
+                          </div>
+                          <div>
+                            <h6 className="mb-0">
+                            Personalized Mentorship
+                            </h6>
+                          </div>
+                        </div>
+                      </li>
+                      <li className="py-2">
+                        <div className="d-flex align-items-center">
+                          <div>
+                            <Badge
+                              className="badge-circle mr-3"
+                              color="success"
+                            >
+                              <i className="ni ni-bulb-61" />
+                            </Badge>
+                          </div>
+                          <div>
+                            <h6 className="mb-0"> Hands-On Tasks
+                            </h6>
+                          </div>
+                        </div>
+                      </li>
+                      <li className="py-2">
+                        <div className="d-flex align-items-center">
+                          <div>
+                            <Badge
+                              className="badge-circle mr-3"
+                              color="success"
+                            >
+                              <i className="ni ni-planet" />
+                            </Badge>
+                          </div>
+                          <div>
+                            <h6 className="mb-0">
+                            Tech Stack Mastery
+                            </h6>
+                          </div>
+                        </div>
+                      </li>
+
+                      <li className="py-2">
+                        <div className="d-flex align-items-center">
+                          <div>
+                            <Badge
+                              className="badge-circle mr-3"
+                              color="success"
+                            >
+                              <i className="ni ni-satisfied" />
+                            </Badge>
+                          </div>
+                          <div>
+                            <h6 className="mb-0">
+                            English Language Support
+                            </h6>
+                          </div>
+                        </div>
+                      </li>
+
+
+                      <li className="py-2">
+                        <div className="d-flex align-items-center">
+                          <div>
+                            <Badge
+                              className="badge-circle mr-3"
+                              color="success"
+                            >
+                              <i className="ni ni-app" />
+                            </Badge>
+                          </div>
+                          <div>
+                            <h6 className="mb-0">
+                            Resume & Job Application Guidance
+                            </h6>
+                          </div>
+                        </div>
+                      </li>
+
+
+                    </ul>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </section>
+
 
           <section className="section bg-secondary">
             <Container>
@@ -273,27 +489,16 @@ class Landing extends React.Component {
                     </div>
                     <h3>Who Are We?</h3>
                     <p className="lead">
-                    'Your Mentor Bro' is a self learned  Software Developer Community From Diffrent Cities with Expertised Experience
+                    We’re not just mentors; we’re your partners in growth, progress, and achievement
                     </p>
                     <p>
-                     We Are Currently Working software engineeers in diffrent domains and diffrent cities accross india
+                    At Your Mentor Bro, we specialize in helping individuals rediscover their passion for coding and career development
                     </p>
                     <p>
-                     Our Mentorship program aims to teach coding and selfdevelopment for 1K students in 2 years with personalized Mentorship
+                    Our mission is simple: to equip you with the skills, confidence, and mindset needed to forge a successful path in today’s competitive world.
                     </p>
 
-                    <p>
-                    We Are Group Developers who learned Coding themselves by 
-                    strugling and sacrifacing , so you can follow our path become a successfull developer like us
-                    </p>
-
-                    <a
-                      className="font-weight-bold text-warning mt-5"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                     Scroll Down to bottom to see our Experts
-                    </a>
+                  
                   </div>
                 </Col>
               </Row>
@@ -302,247 +507,8 @@ class Landing extends React.Component {
 
 
 
-          <section className="section section-lg">
-            <Container>
-              <Row className="row-grid align-items-center">
-                <Col className="order-md-2" md="6">
-                  <img
-                    alt="..."
-                    className="img-fluid floating"
-                    src={require("assets/img/theme/promo-1.png")}
-                  />
-                </Col>
-                <Col className="order-md-1" md="6">
-                  <div className="pr-md-5">
-                    <div className="icon icon-lg icon-shape icon-shape-success shadow rounded-circle mb-5">
-                      <i className="ni ni-settings-gear-65" />
-                    </div>
-                    <h3>Web Design From Zero to One</h3>
-                    <p>
-                    We will guide you in learning web design from scratch with our proven pathways.
-                     Our mentorship will help you learn effectively, and through practice,
-                     you'll become capable of learning independently without assistance.
-                    </p>
-                    <ul className="list-unstyled mt-5">
-                      <li className="py-2">
-                        <div className="d-flex align-items-center">
-                          <div>
-                            <Badge
-                              className="badge-circle mr-3"
-                              color="success"
-                            >
-                              <i className="ni ni-settings-gear-65" />
-                            </Badge>
-                          </div>
-                          <div>
-                            <h6 className="mb-0">
-                             Web Design with html,css,js
-                            </h6>
-                          </div>
-                        </div>
-                      </li>
-                      <li className="py-2">
-                        <div className="d-flex align-items-center">
-                          <div>
-                            <Badge
-                              className="badge-circle mr-3"
-                              color="success"
-                            >
-                              <i className="ni ni-html5" />
-                            </Badge>
-                          </div>
-                          <div>
-                            <h6 className="mb-0"> You will learn to Build Your Portfolio Web to Showcase your Projects </h6>
-                          </div>
-                        </div>
-                      </li>
-                      <li className="py-2">
-                        <div className="d-flex align-items-center">
-                          <div>
-                            <Badge
-                              className="badge-circle mr-3"
-                              color="success"
-                            >
-                              <i className="ni ni-satisfied" />
-                            </Badge>
-                          </div>
-                          <div>
-                            <h6 className="mb-0">
-                            You Can Build a Complete web with Experienced Developers in a Month
-                            </h6>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </section>
-
-          <section className="section pb-0 bg-gradient-warning">
-            <Container>
-              <Row className="row-grid align-items-center">
-                <Col className="order-lg-2 ml-lg-auto" md="6">
-                  <div className="position-relative pl-md-5">
-                    <img
-                      alt="..."
-                      className="img-center img-fluid"
-                      src={require("assets/img/ill/ill-2.svg")}
-                    />
-                  </div>
-                </Col>
-                <Col className="order-lg-1" lg="6">
-                  <div className="d-flex px-3">
-                    <div>
-                      <div className="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
-                        <i className="ni ni-building text-primary" />
-                      </div>
-                    </div>
-                    <div className="pl-4">
-                      <h4 className="display-3 text-white">Course Pricing</h4>
-                      <p className="text-white">
-                      Our courses are designed to be affordable and accessible to anyone, anywhere. With 24/7 support, even those without an IT background or formal education can learn and thrive in the technology era
-                      </p>
-                    </div>
-                  </div>
-                  <Card className="shadow shadow-lg--hover mt-5">
-                    <CardBody>
-                      <div className="d-flex px-3">
-                        <div>
-                          <div className="icon icon-shape bg-gradient-success rounded-circle text-white">
-                            <i className="ni ni-satisfied" />
-                          </div>
-                        </div>
-                        <div className="pl-4">
-                          <h5 className="title text-success">
-                           MERN Stack
-                          </h5>
-                         <ul>
-                          <li>Duration :32 Weeks</li>
-                          <li>Technologies : MongoDB , Express , React , Node js</li>
-                          <li>Meterial Designing</li>
-                          <li>Purchase : 400 Rupees per week</li>
-                         </ul>
-                          <a
-                            className="text-success"
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Learn more
-                          </a>
-                        </div>
-                      </div>
-                    </CardBody>
-                  </Card>
-                  <Card className="shadow shadow-lg--hover mt-5">
-                    <CardBody>
-                      <div className="d-flex px-3">
-                        <div>
-                          <div className="icon icon-shape bg-gradient-warning rounded-circle text-white">
-                            <i className="ni ni-active-40" />
-                          </div>
-                        </div>
-                        <div className="pl-4">
-                          <h5 className="title text-warning">
-                          MEAN Stack
-                          </h5>
-                         <ul>
-                          <li> Duration : 32 weeks</li>
-                          <li>Technologies : MongoDB , Express , Angular , Node js</li>
-                          <li>Angular Meterials Design ,ngx Modules</li>
-                          <li>Purchase : 400 Rupees per week</li>
-                         </ul>
-                          <a
-                            className="text-warning"
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Learn more
-                          </a>
-                        </div>
-                      </div>
-                    </CardBody>
-                  </Card>
-
-                  <Card className="shadow shadow-lg--hover mt-5">
-                    <CardBody>
-                      <div className="d-flex px-3">
-                        <div>
-                          <div className="icon icon-shape bg-gradient-warning rounded-circle text-white">
-                            <i className="ni ni-active-40" />
-                          </div>
-                        </div>
-                        <div className="pl-4">
-                          <h5 className="title text-warning">
-                          Python Django With React
-                          </h5>
-                         <ul>
-                         <li> Duration : 30 weeks</li>
-                          <li>Technologies : MySql , Python , React , MongoDb </li>
-                          <li>Bootstrap And Tailwind</li>
-                          <li>Purchase : 400 Rupees per week</li>
-                         </ul>
-                          <a
-                            className="text-warning"
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Learn more
-                          </a>
-                        </div>
-                      </div>
-                    </CardBody>
-                  </Card>
-
-                  <Card className="shadow shadow-lg--hover mt-5">
-                    <CardBody>
-                      <div className="d-flex px-3">
-                        <div>
-                          <div className="icon icon-shape bg-gradient-warning rounded-circle text-white">
-                            <i className="ni ni-active-40" />
-                          </div>
-                        </div>
-                        <div className="pl-4">
-                          <h5 className="title text-warning">
-                          Frontend Or Backend Stack
-                          </h5>
-                         <ul>
-                          <li>Select Your Favourite Frontend Technology , React ,Angular,Vue Js</li>
-                          <li>Or Select Your Favourite Backend Technology , Node js ,Nest js,Python </li>
-                         </ul>
-                          <a
-                            className="text-warning"
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Learn more
-                          </a>
-                        </div>
-                      </div>
-                    </CardBody>
-                  </Card>
-                </Col>
-              </Row>
-            </Container>
-            {/* SVG separator */}
-            <div className="separator separator-bottom separator-skew zindex-100">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-                version="1.1"
-                viewBox="0 0 2560 100"
-                x="0"
-                y="0"
-              >
-                <polygon
-                  className="fill-white"
-                  points="2560 0 2560 100 0 100"
-                />
-              </svg>
-            </div>
-          </section>
-          <section className="section section-lg">
+     
+          {/* <section className="section section-lg">
             <Container>
               <Row className="justify-content-center text-center mb-lg">
                 <Col lg="8">
@@ -551,177 +517,24 @@ class Landing extends React.Component {
   Our faculties are currently employed at various reputable companies. Below are the foundational members of Mentor Bro who shape its vision and mission.
 </p>
 
+
+
                 </Col>
               </Row>
-              <Row>
-                <Col className="mb-5 mb-lg-0" lg="4" md="6">
-                  <div className="px-4">
-                    <img
-                      alt="..."
-                      className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                      src={require("assets/img/theme/team-1-800x800.jpg")}
-                      style={{ width: "200px" }}
-                    />
-                    <div className="pt-4 text-center">
-                      <h5 className="title">
-                        <span className="d-block mb-1">Radwan Rashiq</span>
-                        <small className="h6 text-muted">Full Stack Developer at Infosys and Founder of Mentor Bro</small>
-                      </h5>
-                      <div className="mt-3">
-                        <Button
-                          className="btn-icon-only rounded-circle"
-                          color="warning"
-                          href="#pablo"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <i className="fa fa-twitter" />
-                        </Button>
-                        <Button
-                          className="btn-icon-only rounded-circle ml-1"
-                          color="warning"
-                          href="#pablo"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <i className="fa fa-facebook" />
-                        </Button>
-                        <Button
-                          className="btn-icon-only rounded-circle ml-1"
-                          color="warning"
-                          href="#pablo"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <i className="fa fa-dribbble" />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </Col>
-                <Col className="mb-5 mb-lg-0" lg="4" md="6">
-                  <div className="px-4">
-                    <img
-                      alt="..."
-                      className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                      src={require("assets/img/theme/team-2-800x800.jpg")}
-                      style={{ width: "200px" }}
-                    />
-                    <div className="pt-4 text-center">
-                      <h5 className="title">
-                        <span className="d-block mb-1">Rifaan</span>
-                        <small className="h6 text-muted">
-                          Full stack Developer at Bicoders solutions
-                        </small>
-                      </h5>
-                      <div className="mt-3">
-                        <Button
-                          className="btn-icon-only rounded-circle"
-                          color="primary"
-                          href="#pablo"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <i className="fa fa-twitter" />
-                        </Button>
-                        <Button
-                          className="btn-icon-only rounded-circle ml-1"
-                          color="primary"
-                          href="#pablo"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <i className="fa fa-facebook" />
-                        </Button>
-                        <Button
-                          className="btn-icon-only rounded-circle ml-1"
-                          color="primary"
-                          href="#pablo"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <i className="fa fa-dribbble" />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </Col>
-       
-                <Col className="mb-5 mb-lg-0" lg="4" md="6">
-                  <div className="px-4">
-                    <img
-                      alt="..."
-                      className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                      src={require("assets/img/theme/team-4-800x800.jpg")}
-                      style={{ width: "200px" }}
-                    />
-                    <div className="pt-4 text-center">
-                      <h5 className="title">
-                        <span className="d-block mb-1">Fazil</span>
-                        <small className="h6 text-muted">Full Stack Developer at Evento Tech Solutions</small>
-                      </h5>
-                      <div className="mt-3">
-                        <Button
-                          className="btn-icon-only rounded-circle"
-                          color="success"
-                          href="#pablo"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <i className="fa fa-twitter" />
-                        </Button>
-                        <Button
-                          className="btn-icon-only rounded-circle ml-1"
-                          color="success"
-                          href="#pablo"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <i className="fa fa-facebook" />
-                        </Button>
-                        <Button
-                          className="btn-icon-only rounded-circle ml-1"
-                          color="success"
-                          href="#pablo"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <i className="fa fa-dribbble" />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </Col>
+              <Row  className="faculty-box"   >
+
               </Row>
             </Container>
-          </section>
-          <section className="section section-lg pt-0">
-            <Container>
-              <Card className="bg-gradient-warning shadow-lg border-0">
-                <div className="p-5">
-                  <Row className="align-items-center">
-                    <Col lg="8">
-                      <h3 className="text-white">
-                        We made website building easier for you.
-                      </h3>
-                      <p className="lead text-white mt-3">
-                        Our Faculties made complete pathway to transfrom as a software developer with their past experiences , you can learn in a click
-                      </p>
-                    </Col>
-                    <Col className="ml-lg-auto" lg="3">
-                      <Button
-                        block
-                        className="btn-white"
-                        color="default"
-                        href="https://www.creative-tim.com/product/argon-design-system-react?ref=adsr-landing-page"
-                        size="lg"
-                      >
-                        Download Complete Path
-                      </Button>
-                    </Col>
-                  </Row>
-                </div>
-              </Card>
-            </Container>
-          </section>
+          </section> */}
+          
           <section className="section section-lg bg-gradient-default">
             <Container className="pt-lg pb-300">
               <Row className="text-center justify-content-center">
                 <Col lg="10">
                   <h2 className="display-3 text-white">Benefits Of Learning with Us</h2>
                   <p className="lead text-white">
-                  Stay on track with regular check-ins and progress tracking with Our App 'Mento', ensuring you stay motivated and focused on your goals. And Also Get..
+                  Empowering You Every Step of the Way
+                  Learning to code can be challenging, but you're never in it alone. We provide constant encouragement, personalized motivation, and inspiration to keep you on track, even during the toughest moments. Our mission is to empower you to stay focused and resilient, helping you turn obstacles into opportunities and realize your full potential. Together, we'll keep pushing forward until you reach your goals.
                   </p>
                 </Col>
               </Row>
@@ -730,27 +543,27 @@ class Landing extends React.Component {
                   <div className="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
                     <i className="ni ni-settings text-primary" />
                   </div>
-                  <h5 className="text-white mt-3">Interview Training</h5>
+                  <h5 className="text-white mt-3">Work at Your Own Pace</h5>
                   <p className="text-white mt-3">
-                  We Will train you  for interview like how our community prepared , And also provide internships in IT Parks
+                  Our program is flexible and remote, allowing you to learn from the comfort of your home.
                   </p>
                 </Col>
                 <Col lg="4">
                   <div className="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
                     <i className="ni ni-ruler-pencil text-primary" />
                   </div>
-                  <h5 className="text-white mt-3">Flexible Learning</h5>
+                  <h5 className="text-white mt-3">Real-World Experience</h5>
                   <p className="text-white mt-3">
-                  We will Assign You Weekly Tasks , Each Week You will Learn Important Topics of the Course , After 24 week You will be Completed 2 Large Web Projects
+                  The projects we assign are designed to simulate real-world tech challenges, giving you a portfolio that stands out to employers.
                   </p>
                 </Col>
                 <Col lg="4">
                   <div className="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
                     <i className="ni ni-atom text-primary" />
                   </div>
-                  <h5 className="text-white mt-3">Track Your Progress</h5>
+                  <h5 className="text-white mt-3">Supportive Community</h5>
                   <p className="text-white mt-3">
-                  Our software or Application helps you to track your Progress with Ranking system with your batch mates , It helps you to be competetive in learning
+                  Join a network of like-minded students and mentors who are all here to help you succeed.
                   </p>
                 </Col>
               </Row>
@@ -796,12 +609,15 @@ class Landing extends React.Component {
                           <Input
                             placeholder="Your name"
                             type="text"
+                            name="Name"
+                          
                             onFocus={(e) =>
                               this.setState({ nameFocused: true })
                             }
                             onBlur={(e) =>
                               this.setState({ nameFocused: false })
                             }
+                            onChange={this.handleChange}
                           />
                         </InputGroup>
                       </FormGroup>
@@ -818,6 +634,7 @@ class Landing extends React.Component {
                           </InputGroupAddon>
                           <Input
                             placeholder="Email address"
+                            name="Email"
                             type="email"
                             onFocus={(e) =>
                               this.setState({ emailFocused: true })
@@ -825,6 +642,7 @@ class Landing extends React.Component {
                             onBlur={(e) =>
                               this.setState({ emailFocused: false })
                             }
+                            onChange={this.handleChange}
                           />
                         </InputGroup>
                       </FormGroup>
@@ -832,14 +650,15 @@ class Landing extends React.Component {
                         <Input
                           className="form-control-alternative"
                           cols="80"
-                          name="name"
-                          placeholder="Type a message..."
-                          rows="4"
-                          type="textarea"
+                          name="Mobile"
+                          placeholder="Mobile"
+                          onChange={this.handleChange}
+                          
+                      
                         />
                       </FormGroup>
                       <div>
-                        <Button
+                        <Button  onClick={this.handleSubmit}
                           block
                           className="btn-round"
                           color="default"

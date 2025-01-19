@@ -52,6 +52,9 @@ class Index extends React.Component {
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
   }
+
+
+
   render() {
     return (
       <>

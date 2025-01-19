@@ -1,0 +1,17 @@
+.career-card ul{
+
+    list-style: none;
+    li{
+        display: flex;
+        column-gap: 10px;
+        margin-bottom: 10x;
+    }
+}
+
+.career-card     h2{
+    // text-align: center;
+    padding: 15px;
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: 600;
+}

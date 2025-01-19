@@ -72,29 +72,16 @@ class CardsFooter extends React.Component {
                 </h4>
               </Col>
               <Col className="text-lg-center btn-wrapper" lg="6">
-                <Button
-                  className="btn-icon-only rounded-circle"
-                  color="twitter"
-                  href="https://twitter.com/creativetim"
-                  id="tooltip475038074"
-                  target="_blank"
-                >
-                  <span className="btn-inner--icon">
-                    <i className="fa fa-twitter" />
-                  </span>
-                </Button>
-                <UncontrolledTooltip delay={0} target="tooltip475038074">
-                  Follow us
-                </UncontrolledTooltip>
+          
                 <Button
                   className="btn-icon-only rounded-circle ml-1"
-                  color="facebook"
+                  color="youtube"
                   href="https://www.facebook.com/creativetim"
                   id="tooltip837440414"
                   target="_blank"
                 >
                   <span className="btn-inner--icon">
-                    <i className="fa fa-facebook-square" />
+                    <i className="fa fa-youtube" />
                   </span>
                 </Button>
                 <UncontrolledTooltip delay={0} target="tooltip837440414">
@@ -102,13 +89,13 @@ class CardsFooter extends React.Component {
                 </UncontrolledTooltip>
                 <Button
                   className="btn-icon-only rounded-circle ml-1"
-                  color="dribbble"
+                 style={{background:"linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)"}}
                   href="https://dribbble.com/creativetim"
                   id="tooltip829810202"
                   target="_blank"
                 >
                   <span className="btn-inner--icon">
-                    <i className="fa fa-dribbble" />
+                    <i className="fa fa-instagram" />
                   </span>
                 </Button>
                 <UncontrolledTooltip delay={0} target="tooltip829810202">
@@ -116,17 +103,17 @@ class CardsFooter extends React.Component {
                 </UncontrolledTooltip>
                 <Button
                   className="btn-icon-only rounded-circle ml-1"
-                  color="github"
+                  style={{background:"green"}}
                   href="https://github.com/creativetimofficial"
                   id="tooltip495507257"
                   target="_blank"
                 >
                   <span className="btn-inner--icon">
-                    <i className="fa fa-github" />
+                    <i className="fa fa-whatsapp" />
                   </span>
                 </Button>
                 <UncontrolledTooltip delay={0} target="tooltip495507257">
-                  Star on Github
+                Chat On WhatsApp
                 </UncontrolledTooltip>
               </Col>
             </Row>
@@ -139,21 +126,13 @@ class CardsFooter extends React.Component {
                     href="https://www.creative-tim.com?ref=adsr-footer"
                     target="_blank"
                   >
-                   Rifaan.com
+                  YourMentorBro
                   </a>
                  .
                 </div>
               </Col>
               <Col md="6">
                 <Nav className="nav-footer justify-content-end">
-                  <NavItem>
-                    <NavLink
-                      href="https://www.creative-tim.com?ref=adsr-footer"
-                      target="_blank"
-                    >
-                     Your Mentor Bro
-                    </NavLink>
-                  </NavItem>
                   <NavItem>
                     <NavLink
                       href="https://www.creative-tim.com/presentation?ref=adsr-footer"
@@ -175,7 +154,7 @@ class CardsFooter extends React.Component {
                       href="https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md"
                       target="_blank"
                     >
-                      MIT License
+                     YourMentorBro@gmail.com
                     </NavLink>
                   </NavItem>
                 </Nav>

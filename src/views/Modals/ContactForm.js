@@ -1,19 +1,72 @@
-import React,{useState} from 'react'
+import axios from 'axios';
+import React,{useState,useEffect} from 'react'
 import { Modal, Button, Form } from "react-bootstrap";
-import PropTypes from 'prop-types'
+import toast from "react-hot-toast";
 
-function ContactForm(props) {
+function ContactForm() {
+
+
+  useEffect(()=>{
+
+  },[])
 
     const [show, setShow] = useState(false);
-    const [clientName, setClientName] = useState("");
-    const [clientMobile, setClientMobile] = useState("");
+    const [Name, setName] = useState("");
+    const [Mobile, setMobile] = useState("");
+    const [Email,setEmail] = useState("");
   
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
   
-    const handleSave = () => {
+    const handleSave = async(e) => {
      
-      setShow(false);
+e.preventDefault();
+
+
+
+
+let headers = new Headers();
+
+headers.append('Content-Type', 'application/json');
+headers.append('Accept', 'application/json');
+
+headers.append('Access-Control-Allow-Origin', '*');
+headers.append('Access-Control-Allow-Credentials', 'true');
+
+headers.append('GET', 'POST', 'OPTIONS');
+
+const formData = new FormData();
+formData.append("Name", Name);
+formData.append("Mobile", Mobile);
+formData.append("Email", Email);
+
+
+if (!Name) {
+  toast.error("Name is required");
+  return;
+}
+if (!Mobile || !/^\d{10}$/.test(Mobile)) {
+  toast.error("Valid 10 digit mobile number is required");
+  return;
+}
+if (!Email || !/\S+@\S+\.\S+/.test(Email)) {
+  toast.error("Valid email is required");
+  return;
+}
+
+const url = "https://script.google.com/macros/s/AKfycbwH02_gLAZixrWZjeP44SElEik36ny9vqb77r8wxeyNCd0Tlho1oCiN4PA0rP7DWxG-EQ/exec"
+
+await axios.post(`${url}?Name=${Name}&Mobile=${Mobile}&Email=${Email}&page=1`,formData,
+  { headers: headers}
+).then((response)=>{
+toast.success("Your response send !")
+  setName("");
+  setMobile("");
+  setEmail("");
+  setShow(false);
+})
+
+      // 
 
     }
 
@@ -21,6 +74,7 @@ function ContactForm(props) {
     <>
                         <Button  onClick={handleShow}
                           className="btn-icon mb-3 mb-sm-0"
+                          style={{background:"var(--primary-color)"}}
                           color="info"
                         >
                           <span className="btn-inner--icon mr-1">
@@ -41,17 +95,27 @@ function ContactForm(props) {
               <Form.Control
                 type="text"
                 placeholder="Enter Your Name"
-                value={clientName}
-                onChange={(e) => setClientName(e.target.value)}
+                value={Name}
+                onChange={(e) => setName(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBrandDescription">
               <Form.Label>Mobile Number</Form.Label>
               <Form.Control
                 placeholder="Enter your 10 digit mobile number"
-                value={clientMobile}
+                value={Mobile}
                 type='number'
-                onChange={(e) => setClientMobile(e.target.value)}
+                onChange={(e) => setMobile(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBrandDescription">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                placeholder="Enter your Email"
+                value={Email}
+                type='text'
+                onChange={(e) => setEmail(e.target.value)}
               />
             </Form.Group>
           </Form>

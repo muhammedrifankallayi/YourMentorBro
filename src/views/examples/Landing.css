@@ -1,0 +1,44 @@
+button.control-arrow.control-next{
+    background: rebeccapurple;
+}
+
+.carousel .control-arrow, .carousel.carousel-slider .control-arrow{
+    background: #cccccc;
+}
+
+.control-dots .dots{
+    background: blue;
+}
+
+.main-page   .navbar-transparent{
+    background-color: white !important;
+    
+    }
+
+    .main-page .navbar-nav .nav-link .nav-link-inner--text{
+        color: #1e407c !important;
+    }
+
+    .main-page .title-2{
+        color: #1e407c !important;
+    }
+
+ .main-page   .title-wraper{
+        padding: 3px;
+        border-right: 4px solid #1e407c;
+        border-radius: 40%;
+    }
+    .main-page .navbar-light .navbar-toggler{
+        background-color: #1e407c !important;
+    }
+
+
+.course-cards .shadow{
+    background: var(--primary-color);
+    color: white;
+}
+
+
+    :root{
+        --primary-color:linear-gradient(35deg, #172b4d 0, #1a174d 100%) !important;
+    }
