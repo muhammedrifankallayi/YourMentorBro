@@ -14,10 +14,7 @@
   }
   
   .course-card {
-
-    background: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
     padding: 20px;
     text-align: left;
@@ -63,6 +60,11 @@
   p{
     font-size: 18px;
   }
+
+  .container-fluid{
+   padding: 10px 40px;
+  }
+
   
   @media (max-width: 768px) {
     .courses-container {
@@ -71,7 +73,39 @@
     }
   
     .course-card {
-      width: 90%;
+     
+        border-radius: 8px;
+        width: 100%;
+        padding: 0px;
+        text-align: left;
+      ul{
+        margin: 0;
+      }
+    }
+
+    .course-details{
+      padding: 0;
+    }
+
+    .course-card ul li {
+      font-size: 16px !important;
+    }
+    .container-fluid{
+      margin-top: 85px !important;
     }
   }
   
+
+  .MuiTabs-flexContainer.css-1wxkzlj-MuiTabs-flexContainer{
+    display: flex;
+    justify-content: center;
+  }
+
+  .lottie-course{
+    width: 80px;
+    height: 80px;
+  }
+  .lottie-wrap{
+    display: flex;
+    align-items: center;
+  }

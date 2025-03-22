@@ -41,7 +41,7 @@ class SimpleFooter extends React.Component {
                   Thank you for supporting us!
                 </h3>
                 <h4 className=" mb-0 font-weight-light">
-                  Let's get in touch on any of these platforms.
+                  Let's Turn Your Dream Career into Reality.
                 </h4>
               </Col>
               <Col className="text-lg-center btn-wrapper" lg="6">

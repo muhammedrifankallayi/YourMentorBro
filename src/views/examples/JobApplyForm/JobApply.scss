@@ -1,0 +1,38 @@
+
+h1 {
+    font-size: 28px;
+}
+.job-info {
+    font-size: 16px;
+    margin: 10px 0;
+}
+.bold {
+    font-weight: bold;
+}
+ul {
+    padding-left: 20px;
+}
+
+.main-card{
+    font-family: Arial, sans-serif;
+    margin: 40px;
+}
+
+.btn-apply{
+    background: #1e407c;
+    color: white;
+    padding: 10px;
+    width: 100px;
+    float: right;
+}
+
+.btn-sec{
+    border-top: 1px solid #cccc;
+    padding: 3px;
+}
+
+@media(max-width:700px){
+    .btn-apply{
+        float: left;
+    }
+}

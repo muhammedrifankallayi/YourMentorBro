@@ -16,6 +16,8 @@ import {
     Row,
     Col,
   } from "reactstrap";
+import CardsFooter from 'components/Footers/CardsFooter';
+import { socailMediaLinks } from 'assets/data-sets/socialMedia';
 
 function ContactUs() {
   return (
@@ -29,9 +31,9 @@ function ContactUs() {
 
 <section className=""   style={{marginTop:"110px"}} >
             <Container>
-              <Row className=" ">
+              <Row className="top-column  bg-gradient-secondary shadow">
 
-              <Col   style={{display:"flex" ,alignItems:"flex-start"}} >
+              <Col className='topcol'  style={{display:"flex" ,alignItems:"flex-start",justifyContent:"center"}} >
                 <div className='cont-card-1'  >
                 <div class="container my-5">
     <div class="contact-card text-center mx-auto p-4">
@@ -49,7 +51,7 @@ function ContactUs() {
         </p> */}
         <p class="d-flex align-items-center justify-content-center">
           <i class="bi bi-envelope-fill me-3"></i>
-          <span>Email: <a href="mailto:hello@eduport.app">YourMentorBro@gmail.com</a></span>
+          <span>Email: <a href="mailto:mentorbroconnect@gmail.com">mentorbroconnect@gmail.com</a></span>
         </p>
         <p class="d-flex align-items-center justify-content-center">
           <i class="bi bi-telephone-fill me-3"></i>
@@ -57,10 +59,10 @@ function ContactUs() {
         </p>
       </div>
       <div class="social-icons mt-4">
-        <a href="#" aria-label="Facebook"><i class="bi bi-whatsapp"></i></a>
-        <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-        <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+        <a href={socailMediaLinks?.whatsApp} aria-label="Facebook"><i class="bi bi-whatsapp"></i></a>
+        {/* <a href={socailMediaLinks?.LinkedIn} aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a> */}
+        <a href={socailMediaLinks?.youtube} aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+        <a href={socailMediaLinks?.instagram} aria-label="Instagram"><i class="bi bi-instagram"></i></a>
       </div>
     </div>
   </div>
@@ -72,8 +74,8 @@ function ContactUs() {
 
 
 
-                <Col lg="8">
-                  <Card className="bg-gradient-secondary shadow">
+                <Col lg="6">
+                  <Card className="custom-design">
                     <CardBody className="p-lg-5">
                       <h4 className="mb-1">Want to Contact with us?</h4>
                       <p className="mt-0">
@@ -152,6 +154,7 @@ function ContactUs() {
 
 
 </div>
+ <CardsFooter />
   </div>
   )
 }

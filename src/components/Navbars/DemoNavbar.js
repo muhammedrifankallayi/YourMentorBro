@@ -1,33 +1,13 @@
-/*!
 
-=========================================================
-* Argon Design System React - v1.1.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-design-system-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import { Link } from "react-router-dom";
 // JavaScript plugin that hides or shows a component based on your scroll
 import Headroom from "headroom.js";
 // reactstrap components
 import {
-  Button,
   UncontrolledCollapse,
-  DropdownMenu,
-  DropdownItem,
   DropdownToggle,
   UncontrolledDropdown,
-  Media,
   NavbarBrand,
   Navbar,
   NavItem,
@@ -38,12 +18,21 @@ import {
   Col,
   UncontrolledTooltip,
 } from "reactstrap";
+import ArrowRight from "../../assets/Lottie-Files/arrow-right.json"
+
+import { navItems } from "../../assets/data-sets/navItems"
+
+import { socailMediaLinks } from "assets/data-sets/socialMedia";
+import Lottie from "lottie-react";
 
 class DemoNavbar extends React.Component {
   componentDidMount() {
     let headroom = new Headroom(document.getElementById("navbar-main"));
     // initialise
     headroom.init();
+
+
+
   }
   state = {
     collapseClasses: "",
@@ -73,12 +62,37 @@ class DemoNavbar extends React.Component {
           >
             <Container>
               <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
-              <div className="title-wraper" >  <span style={{color:"#ffcd00"}} >Your</span>   <span className="title-2" style={{fontWeight:"800",color:"#1e407c"}}> Mentor </span>  <span style={{color:"#ffcd00"}}>Bro</span> </div>
-               
+                <div className="title-wraper" >
+                  {/* <span className="title-2" style={{fontWeight:"800",color:"#1e407c"}}> Mentor </span>  <span style={{color:"#ffcd00"}}>Bro</span>  */}
+                  {
+                    window.location.pathname == '/' ? (
+                      <img width={"75px"} height={"5px"} className="black-logo" src={require("../../assets/img/brand/org-img-black.png")} ></img>
+                    ) : (
+                      <img width={"75px"} height={"5px"} className="white-logo" src={require("../../assets/img/brand/mentorbro-log-white.png")} ></img>
+                    )
+                  }
+
+
+                </div>
+
               </NavbarBrand>
-              <button className="navbar-toggler" id="navbar_global">
-                <span className="navbar-toggler-icon" />
-              </button>
+              <div className="d-flex" >
+
+                {
+
+
+                  window.location.pathname == "/" ? (
+                    <Lottie className="lottie-arrow" animationData={ArrowRight} style={{ width: "50px", height: "50px" }} />
+                  ) : (
+                    <span></span>
+                  )
+                }
+                <button className="navbar-toggler" id="navbar_global">
+
+                  <span className="navbar-toggler-icon" />
+                </button>
+
+              </div>
               <UncontrolledCollapse
                 toggler="#navbar_global"
                 navbar
@@ -90,10 +104,12 @@ class DemoNavbar extends React.Component {
                   <Row>
                     <Col className="collapse-brand" xs="6">
                       <Link to="/">
-                      <div className="title-wraper" >  <span style={{color:"#ffcd00"}} >Your</span>   <span className="title-2" style={{fontWeight:"800",color:"#1e407c"}}> Mentor </span>  <span style={{color:"#ffcd00"}}>Bro</span> </div>
+                        <div className="title-wraper" ><span className="title-2  title-toggle" style={{ fontWeight: "800", color: "#1e407c" }}> Mentor </span>  <span style={{ color: "#ffcd00" }}>Bro</span> </div>
                       </Link>
                     </Col>
+
                     <Col className="collapse-close" xs="6">
+
                       <button className="navbar-toggler" id="navbar_global">
                         <span />
                         <span />
@@ -103,50 +119,29 @@ class DemoNavbar extends React.Component {
                 </div>
                 <Nav className="navbar-nav-hover align-items-lg-center" navbar>
 
-                <UncontrolledDropdown nav>
-                    <DropdownToggle nav onClick={() => window.location.href = '/'}>
-                      <i className="ni ni-collection d-lg-none mr-1" />
-                      <span className="nav-link-inner--text">Home</span>
-                    </DropdownToggle>
-                  </UncontrolledDropdown>
+                  {
+                    navItems.map((x) => {
+                      return (
+                        <UncontrolledDropdown nav>
+                          <DropdownToggle nav onClick={() => window.location.href = x?.url}>
+                            <i className="ni ni-collection d-lg-none mr-1" />
+                            <span className="nav-link-inner--text" style={{ fontWeight: window.location.pathname == x?.url ? "bold" : "normal" }}> {x?.name} </span>
+                          </DropdownToggle>
+                        </UncontrolledDropdown>
+                      )
+                    })
+                  }
 
-                  <UncontrolledDropdown nav>
-                    <DropdownToggle nav onClick={() => window.location.href = '/courses'}>
-                      <i className="ni ni-collection d-lg-none mr-1" />
-                      <span className="nav-link-inner--text">Courses</span>
-                    </DropdownToggle>
-                  </UncontrolledDropdown>
-        
-                  <UncontrolledDropdown nav>
-                    <DropdownToggle nav onClick={() => window.location.href = '/careers'}>
-                      <i className="ni ni-collection d-lg-none mr-1" />
-                      <span className="nav-link-inner--text">Careers</span>
-                    </DropdownToggle>
-                  </UncontrolledDropdown>
-           
-                <UncontrolledDropdown nav>
-                    <DropdownToggle nav onClick={() => window.location.href = '/contact-us'}>
-                      <i className="ni ni-collection d-lg-none mr-1" />
-                      <span className="nav-link-inner--text">Contact-Us</span>
-                    </DropdownToggle>
-                  </UncontrolledDropdown>
-          
-                  <UncontrolledDropdown nav>
-                    <DropdownToggle nav onClick={() => window.location.href = '/about-us'}>
-                      <i className="ni ni-collection d-lg-none mr-1" />
-                      <span className="nav-link-inner--text">About Us</span>
-                    </DropdownToggle>
-                  </UncontrolledDropdown>
                 </Nav>
                 <Nav className="align-items-lg-center ml-lg-auto" navbar>
 
 
-         
+
 
                   <NavItem>
                     <NavLink
-                      className="nav-link-icon"
-                      href="https://www.facebook.com/creativetim"
+                      className="nav-link-icon s-icon"
+                      href={socailMediaLinks?.youtube}
                       id="tooltip333589074"
                       target="_blank"
                     >
@@ -162,8 +157,8 @@ class DemoNavbar extends React.Component {
 
                   <NavItem>
                     <NavLink
-                      className="nav-link-icon"
-                      href="https://twitter.com/creativetim"
+                      className="nav-link-icon s-icon"
+                      href={socailMediaLinks?.whatsApp}
                       id="tooltip184698705"
                       target="_blank"
                     >
@@ -179,8 +174,8 @@ class DemoNavbar extends React.Component {
 
                   <NavItem>
                     <NavLink
-                      className="nav-link-icon"
-                      href="https://www.instagram.com/creativetimofficial"
+                      className="nav-link-icon s-icon"
+                      href={socailMediaLinks?.instagram}
                       id="tooltip356693867"
                       target="_blank"
                     >
@@ -195,8 +190,8 @@ class DemoNavbar extends React.Component {
                   </NavItem>
 
 
-         
-                
+
+
                   <NavItem className="d-none d-lg-block ml-lg-4">
                     {/* <Button
                       className="btn-neutral btn-icon"

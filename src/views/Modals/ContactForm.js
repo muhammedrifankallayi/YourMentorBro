@@ -1,4 +1,6 @@
+import { socailMediaLinks } from 'assets/data-sets/socialMedia';
 import axios from 'axios';
+import Spinner from 'components/Spinners/Spinner';
 import React,{useState,useEffect} from 'react'
 import { Modal, Button, Form } from "react-bootstrap";
 import toast from "react-hot-toast";
@@ -14,6 +16,7 @@ function ContactForm() {
     const [Name, setName] = useState("");
     const [Mobile, setMobile] = useState("");
     const [Email,setEmail] = useState("");
+    const [showSpinner,setShowSpinner] = useState(false);
   
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
@@ -53,12 +56,15 @@ if (!Email || !/\S+@\S+\.\S+/.test(Email)) {
   toast.error("Valid email is required");
   return;
 }
+setShowSpinner(true)
+// const url = "https://script.google.com/macros/s/AKfycbwH02_gLAZixrWZjeP44SElEik36ny9vqb77r8wxeyNCd0Tlho1oCiN4PA0rP7DWxG-EQ/exec"
 
-const url = "https://script.google.com/macros/s/AKfycbwH02_gLAZixrWZjeP44SElEik36ny9vqb77r8wxeyNCd0Tlho1oCiN4PA0rP7DWxG-EQ/exec"
-
-await axios.post(`${url}?Name=${Name}&Mobile=${Mobile}&Email=${Email}&page=1`,formData,
+const url  = socailMediaLinks.contactusGoogleSheetLink
+const curr_date = new Date()
+await axios.post(`${url}?Date=${curr_date}&Name=${Name}&Mobile=${Mobile}&Email=${Email}&page=1`,formData,
   { headers: headers}
 ).then((response)=>{
+  setShowSpinner(false)
 toast.success("Your response send !")
   setName("");
   setMobile("");
@@ -74,7 +80,6 @@ toast.success("Your response send !")
     <>
                         <Button  onClick={handleShow}
                           className="btn-icon mb-3 mb-sm-0"
-                          style={{background:"var(--primary-color)"}}
                           color="info"
                         >
                           <span className="btn-inner--icon mr-1">
@@ -86,7 +91,7 @@ toast.success("Your response send !")
       {/* Modal */}
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header >
-          <Modal.Title>Contact us to book Your Seat!</Modal.Title>
+          <Modal.Title>Get In Touch With Us</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -124,8 +129,8 @@ toast.success("Your response send !")
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleSave}>
-            Save
+          <Button variant="primary"  style={{display:"flex"}} onClick={handleSave}>
+           {showSpinner?(<Spinner/>):(<span>Save</span>)}
           </Button>
         </Modal.Footer>
       </Modal>

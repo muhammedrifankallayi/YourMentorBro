@@ -70,14 +70,21 @@
   background-color: #1e407c !important;
  
   }
+
+   /* .show {
+    background-color: white !important;
+   } */
   .title-2{
     color: white !important;
+  }
+  .title-toggle{
+    color: #1e407c !important;
   }
 
   .title-wraper{
     padding: 3px;
-    border-right: 4px solid white;
-    border-radius: 40%;
+    /* border-right: 4px solid white; */
+    /* border-radius: 40%; */
 }
 
 
@@ -114,9 +121,8 @@ h1 {
 }
 
 .tutors-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+grid-template-columns: repeat(6,1fr);
   gap: 20px;
   padding: 20px;
 }
@@ -134,6 +140,7 @@ h1 {
   width: 100%;
   height: auto;
   object-fit: cover;
+  height: 84% !important;
 }
 
 .tutor-card h2 {
@@ -142,8 +149,70 @@ h1 {
   color: #333;
 }
 
+.mini-card .description{
+  height: 150px !important;
+}
+
+.qus-lottie{
+  width: 80px;
+  height: 80px;
+}
+
+.other-tutors{
+  display: flex;
+  justify-content: center;
+  column-gap: 10px;
+  align-items: center;
+  img{
+    height: 300px !important;
+    float: left;
+  }
+}
+
+@media(max-width:1500px){
+  .tutors-container{
+    grid-template-columns: repeat(5,1fr);
+  }
+}
+
+@media(max-width:1300px){
+  .tutors-container{
+    grid-template-columns: repeat(4,1fr);
+  }
+}
+
+@media(max-width:1000px){
+  .tutors-container{
+    grid-template-columns: repeat(3,1fr);
+  }
+}
+
+@media(max-width:630px){
+  .tutors-container{
+    grid-template-columns: repeat(2,1fr);
+  }
+  .other-tutors{
+    display: grid !important;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 5px;
+    padding: 10px;
+    img{
+      width: 100% !important;
+    }
+  }
+
+}
+
+
 @media (max-width: 600px) {
   .tutor-card {
     width: 100%;
+  }
+  .qus-lottie{
+    width: 35px;
+    height: 35px;
+  }
+  .text-h2{
+    font-size: 30px;
   }
 }

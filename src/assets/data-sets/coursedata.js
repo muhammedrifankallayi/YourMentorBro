@@ -2,22 +2,14 @@
 
 
 export const CourseData = [
+
+
+// 1
+
     {
         name: "MERN Stack",
         logo: 'https://img.icons8.com/?size=100&id=123603&format=png&color=000000',
-        modules: [
-            "Module 1: Introduction to Fullstack",
-            "Module 2: UI Design",
-            "Module 3: HTML",
-            "Module 4: CSS",
-            "Module 5: Frontend Development",
-            "Module 6: Bootstrap CSS Framework",
-            "Module 7: Javascript",
-            "Module 8: DBMS using MongoDB",
-            "Module 9: NodeJS",
-            "Module 10: ExpressJS",
-            "Module 11: ReactJS"
-        ],
+       
         
         indro: `
         Start your exciting journey into web development with our program designed for aspiring developers. Learn essential skills like SQL, HTML, CSS, GIT, React, Redux, Express, NodeJS, MongoDB, and more from scratch.
@@ -47,24 +39,94 @@ export const CourseData = [
                 name: "NodeJS (N)",
                 text: "A runtime environment that enables JavaScript to run on the server-side. It is known for its event-driven, non-blocking I/O model, which makes it efficient for handling concurrent requests."
             }
+        ],
+
+        frontend:[
+         "3 Languages",
+         "3 Frameworks",
+         "3 Libraries",
+         "2 UI Libraries",
+         "1 Designing Tool"
+        ],
+        backend:[
+          "1 FrameWork",
+          "1 DataBase",
+          "1 Runtime Enviroment"
+        ],
+       
+            frontEndDevelopment: {
+              languages: ["HTML", "CSS", "JavaScript"],
+              frameworksLibraries: ["React.js", "Redux", "Next.js"],
+              uiFrameworks: ["Material-UI", "Tailwind CSS"],
+              designTools: ["Figma"],
+              totalLanguages:3
+             
+            },
+            backEndDevelopment: {
+              framework: "Express.js",
+              database: "MongoDB , MySql",
+              runTimeEnvironment: "Node.js"
+            },
+
+            dataStructuresAlgorithms: [
+                "Arrays",
+                "Linked Lists",
+                "Stacks",
+                "Queues",
+                "Recursion",
+                "Sorting & Searching Algorithms",
+                "Trees",
+                "Graphs",
+                "Hashing"
+              ],
+        miniprojects:"Hands-on experience with smaller, focused projects like calculator , expense tracker etc",
+        megaprojects:"Comprehensive projects to build a strong portfolio and showcase your full-stack skills, including eCommerce platforms, booking web apps, and more.",
+        other:[
+            {
+                title:"Interview Preparation",
+                text:"Mock interviews, coding challenges, and soft skill training."
+            },
+            {
+                title:"Resume Creation",
+                text:"Build a standout resume tailored for tech roles"
+            },
+            {
+                title:"Job Application Guidance",
+                text:"Expert advice on how to apply for jobs and craft strong applications."
+            },
+            {
+                title:"Personal Branding",
+                text:"How to market yourself effectively in front of companies and recruiters."
+            }
         ]
+          
+
     },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+
+//  2
+
     {
         name: "MEAN Stack",
         logo:"https://img.icons8.com/?size=100&id=71257&format=png&color=000000",
-        modules: [
-            "Module 1: Introduction to Fullstack",
-            "Module 2: UI Design",
-            "Module 3: HTML",
-            "Module 4: CSS",
-            "Module 5: Frontend Development",
-            "Module 6: Bootstrap CSS Framework",
-            "Module 7: Javascript",
-            "Module 8: DBMS using MongoDB",
-            "Module 9: NodeJS",
-            "Module 10: ExpressJS",
-            "Module 11: AngularJS"
-        ],
+       
         
         indro: `
         Start your journey into full-stack development with the MEAN stack, a modern and powerful combination of technologies. Learn MongoDB, ExpressJS, AngularJS, and NodeJS to build efficient, scalable, and dynamic web applications. With comprehensive training and real-world projects, you'll be ready to excel in your development career.
@@ -93,24 +155,81 @@ export const CourseData = [
                 name: "NodeJS (N)",
                 text: "A runtime environment that enables JavaScript to run on the server-side. It is known for its event-driven, non-blocking I/O model, which makes it efficient for handling concurrent requests."
             }
-        ]
+        ],
+
+
+        frontend:[
+            "3 Languages",
+            "3 Frameworks",
+            "3 Libraries",
+            "2 UI Libraries",
+            "1 Designing Tool"
+           ],
+           backend:[
+             "1 FrameWork",
+             "1 DataBase",
+             "1 Runtime Enviroment"
+           ],
+  
+            frontEndDevelopment: {
+              languages: ["HTML", "CSS", "JavaScript", "TypeScript"],
+              frameworksLibraries: ["Angular", "RxJS", "NgRx"],
+              uiFrameworks: ["Material-UI", "Bootstrap"],
+              designTools: ["Figma"],
+            
+            },
+            backEndDevelopment: {
+              framework: "Express.js",
+              database: "MongoDB",
+              runTimeEnvironment: "Node.js"
+            },
+
+            dataStructuresAlgorithms: [
+                "Arrays",
+                "Linked Lists",
+                "Stacks",
+                "Queues",
+                "Recursion",
+                "Sorting & Searching Algorithms",
+                "Trees",
+                "Graphs",
+                "Hashing"
+              ],
+            benefits: [
+              "Highly scalable and efficient full-stack framework",
+              "TypeScript-based front-end development with Angular",
+              "Fast and secure backend with Node.js and Express.js",
+              "NoSQL database for flexible and scalable data handling"
+            ],
+            miniprojects:"Hands-on experience with smaller, focused projects like calculator , expense tracker etc",
+            megaprojects:"Comprehensive projects to build a strong portfolio and showcase your full-stack skills, including eCommerce platforms, booking web apps, and more.",
+            other:[
+                {
+                    title:"Interview Preparation",
+                    text:"Mock interviews, coding challenges, and soft skill training."
+                },
+                {
+                    title:"Resume Creation",
+                    text:"Build a standout resume tailored for tech roles"
+                },
+                {
+                    title:"Job Application Guidance",
+                    text:"Expert advice on how to apply for jobs and craft strong applications."
+                },
+                {
+                    title:"Personal Branding",
+                    text:"How to market yourself effectively in front of companies and recruiters."
+                }
+            ]
+          
+
+
     },
+
+    // 3
     {
         name: "Python Fullstack",
         logo:"https://img.icons8.com/?size=100&id=13441&format=png&color=000000",
-        modules: [
-            "Module 1: Introduction to Fullstack",
-            "Module 2: Python Basics",
-            "Module 3: HTML and CSS",
-            "Module 4: Python Advanced",
-            "Module 5: Database Management",
-            "Module 6: Flask Framework",
-            "Module 7: Django Framework",
-            "Module 8: REST API Development",
-            "Module 9: Frontend with ReactJS",
-            "Module 10: Deployment Techniques"
-        ],
-        
         indro: `
         Become a versatile developer with our Python Fullstack program. Learn the essentials of Python, Flask, Django, and modern frontend technologies to build dynamic web applications. With hands-on projects and mentorship, you'll gain the skills to build, deploy, and manage full-stack applications with ease.
         `,
@@ -138,6 +257,68 @@ export const CourseData = [
                 name: "ReactJS",
                 text: "A popular JavaScript library for building user interfaces, especially single-page applications. React allows developers to create reusable components and manage the application's state effectively."
             }
-        ]
+        ],
+
+        frontend:[
+            "3 Languages",
+            "3 Frameworks",
+            "3 Libraries",
+            "2 UI Libraries",
+            "1 Designing Tool"
+           ],
+           backend:[
+             "1 FrameWork",
+             "1 DataBase",
+             "1 Runtime Enviroment"
+           ],
+    
+            frontEndDevelopment: {
+              languages: ["HTML", "CSS", "JavaScript"],
+              frameworksLibraries: ["React.js", "Redux", "Next.js"],
+              uiFrameworks: ["Material-UI", "Tailwind CSS"],
+              designTools: ["Figma"],
+             
+            },
+            backEndDevelopment: {
+              language: "Python",
+              framework: "Django",
+              restAPI: "Django REST Framework (DRF)",
+              database: "PostgreSQL / MySQL",
+              authentication: "JWT (JSON Web Token) , OAuth",
+              deployment:"Docker, Heroku , AWS"
+            },
+
+            dataStructuresAlgorithms: [
+                "Arrays",
+                "Linked Lists",
+                "Stacks",
+                "Queues",
+                "Recursion",
+                "Sorting & Searching Algorithms",
+                "Trees",
+                "Graphs",
+                "Hashing"
+              ],
+              miniprojects:"Hands-on experience with smaller, focused projects like calculator , expense tracker etc",
+              megaprojects:"Comprehensive projects to build a strong portfolio and showcase your full-stack skills, including eCommerce platforms, booking web apps, and more.",
+              other:[
+                  {
+                      title:"Interview Preparation",
+                      text:"Mock interviews, coding challenges, and soft skill training."
+                  },
+                  {
+                      title:"Resume Creation",
+                      text:"Build a standout resume tailored for tech roles"
+                  },
+                  {
+                      title:"Job Application Guidance",
+                      text:"Expert advice on how to apply for jobs and craft strong applications."
+                  },
+                  {
+                      title:"Personal Branding",
+                      text:"How to market yourself effectively in front of companies and recruiters."
+                  }
+              ]
+          
     }
 ];

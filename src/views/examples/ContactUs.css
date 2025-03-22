@@ -1,8 +1,12 @@
 .contact-card {
-    background-color: #f8f9fa;
+   
     border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+  }
+
+  .top-column{
+    display: flex;
   }
   .contact-card h1 {
     font-size: 28px;
@@ -34,6 +38,17 @@
     background-color: #e05b0c;
   }
 
-  .cont-card-1{
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  .custom-design{
+    background-color: transparent;
+    border: none;
   }
+
+
+ @media(max-width:750px){
+  .top-column{
+   display: flex;
+   flex-direction: column-reverse;
+   column-gap: 10px; 
+  }
+ }

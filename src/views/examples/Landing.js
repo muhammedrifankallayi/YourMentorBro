@@ -1,12 +1,21 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 
-import React,{useState} from "react";
+import React,{createRef, useState} from "react";
 // nodejs library that concatenates classes
 import classnames from "classnames";
 import WebinarForm from "views/Modals/WebinarForm.js"; 
 import ContactForm from "views/Modals/ContactForm.js";
 import axios from "axios";
+import WhoAreWe from "../../assets/Lottie-Files/whoarewe.json";
+import robo from "../../assets/Lottie-Files/robot.json";
+import howToJoin_Ani from "../../assets/Lottie-Files/thinkman.json"; 
+import filltheform_Ani from "../../assets/Lottie-Files/filltheform.json"; 
+import Entroll_Ani from "../../assets/Lottie-Files/enrollnow.json"; 
+import thinkInTable from "../../assets/Lottie-Files/think-on-table.json"; 
+import communicationLottie from "../../assets/Lottie-Files/communication.json"; 
+import bottomArrow from "../../assets/Lottie-Files/bottonArrow.json"; 
+import weWillCallYouBack_Ani from "../../assets/Lottie-Files/weWillCallYouBack.json"; 
 import "./Landing.css"
 // reactstrap components
 import {
@@ -32,6 +41,8 @@ import CardsFooter from "components/Footers/CardsFooter.js";
 // index page sections
 import Download from "../IndexSections/Download.js";
 import toast from "react-hot-toast";
+import Spinner from "components/Spinners/Spinner";
+import Lottie from "lottie-react";
 
 class Landing extends React.Component {
 
@@ -42,8 +53,11 @@ class Landing extends React.Component {
       showContactModal:false,
       Name: "",
       Mobile: "",
-      Email: ""
+      Email: "",
+      showLoader:false
     };
+
+    this.videoRef = createRef();
   }
 
   handleChange = (event) => {
@@ -53,13 +67,10 @@ class Landing extends React.Component {
     });
   };
 
-  handleSubmit  =  async(e) =>{
-
-    
+  handleSubmit  =  async(e) => {
     e.preventDefault();
 
-
-  let {Name,Email,Mobile} = this.state
+    let {Name, Email, Mobile} = this.state;
 
     let headers = new Headers();
     
@@ -89,17 +100,19 @@ class Landing extends React.Component {
       toast.error("Valid email is required");
       return;
     }
+
+    this.setState({showLoader:true})
     
     const url = "https://script.google.com/macros/s/AKfycbwH02_gLAZixrWZjeP44SElEik36ny9vqb77r8wxeyNCd0Tlho1oCiN4PA0rP7DWxG-EQ/exec"
     
     await axios.post(`${url}?Name=${Name}&Mobile=${Mobile}&Email=${Email}&page=1`,formData,
       { headers: headers}
     ).then((res)=>{
+      this.setState({showLoader:false})
       this.resetState()
-    toast.success("Your reponse has been sent , our team will contact you shorly")
+    toast.success("Your response has been sent, our team will contact you shortly")
    })
   }
-
 
   resetState = () => {
     this.setState({
@@ -107,7 +120,8 @@ class Landing extends React.Component {
       showContactModal: false,
       Name: "",
       Mobile: "",
-      Email: ""
+      Email: "",
+      showLoader: false
     });
   };
 
@@ -137,7 +151,7 @@ class Landing extends React.Component {
 
   openGoogleForm = (e)=>{
     e.preventDefault();
-
+   
     window.open("https://docs.google.com/forms/d/e/1FAIpQLSclBWzfoXyMZuKnr3rxDikG4pr7neDF1t5didxx5Rsh7ZbViw/viewform","_blank")
   }
 
@@ -156,77 +170,76 @@ class Landing extends React.Component {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
-    
+    if (this.videoRef.current) {
+      this.videoRef.current.play();
+    }
   }
   
 
   render() {
-
-
     return (
       <>
-       <div className="main-page" >
-       <DemoNavbar />
-       </div>
+        <div className="spinner-top">
+          {this.state.showLoader && <Spinner />}
+        </div>
+        <div className="main-page">
+          <DemoNavbar />
+        </div>
         <main ref="main">
-          <div className="position-relative">
+          <div className="position-relative"  style={{marginTop:"20px"}}  >
             {/* shape Hero */}
             <section className="section section-lg section-shaped pb-250">
               <div className="shape shape-style-1 shape-default">
-              <video
-    autoPlay
-    loop
-    muted
-    playsInline
-    style={{
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      objectFit: "cover",
-      zIndex: -1,
-    }}
-  >
-    <source src={require("../../assets/videos/3130284-uhd_3840_2160_30fps.mp4")} type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
+             <video
+              ref={this.videoRef}
+                preload="auto"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    zIndex: -1,
+                  }}
+                >
+                  <source src={require("../../assets/videos/3130284-uhd_3840_2160_30fps.mp4")} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+        
               </div>
               <Container className="py-lg-md d-flex">
                 <div className="col px-0">
                   <Row>
                     <Col lg="6">
                       <h1 className="display-3 text-white">
-                       Unlock Your Potential{" "}
+                        Unlock Your Potential{" "}
                         <span>With Personalized Mentorship</span>
                       </h1>
                       <p className="lead text-white">
-                      Guiding You with Proven Methods, Practical Insights, and One-on-One Support to Achieve Your Goals Faster
+                        Guiding You with Proven Methods, Practical Insights, and One-on-One Support to Achieve Your Goals Faster
                       </p>
                       <div className="btn-wrapper">
-                        {/* <Button
-                          className="btn-icon mb-3 mb-sm-0"
-                          color="info"
-                          href="https://demos.creative-tim.com/argon-design-system-react/#/documentation/alerts?ref=adsr-landing-page"
-                        >
-                          <span className="btn-inner--icon mr-1">
-                            <i className="fa fa-send" />
-                          </span>
-                          <span className="btn-inner--text">Contact Us</span>
-                        </Button> */}
-                        <ContactForm  isOpen={this.showContactModal} onClose={this.toggleContactModal}  />
-                           <WebinarForm  isOpen={this.showModal} onClose={this.toggleModal} />
+                        <ContactForm isOpen={this.showContactModal} onClose={this.toggleContactModal} />
+                        <WebinarForm isOpen={this.showModal} onClose={this.toggleModal} />
                       </div>
+                    </Col>
+                    <Col  lg="6" >
+                    
+                    <Lottie  animationData={robo} />
                     </Col>
                   </Row>
                 </div>
               </Container>
               {/* SVG separator */}
-        
             </section>
             {/* 1st Hero Variation */}
           </div>
-          <section className="section section-lg pt-lg-0 mt--200 course-cards">
+          <section className="section section-lg pt-lg-0 mt--200 course-cards section-one"  >
             <Container>
               <Row className="justify-content-center">
                 <Col lg="12">
@@ -255,11 +268,12 @@ class Landing extends React.Component {
                             href="#pablo"
                             onClick={this.openGoogleForm}
                           >
-                            Enroll Now
+                            Enroll Now 
                           </Button>
                         </CardBody>
                       </Card>
                     </Col>
+                  
                     <Col lg="4">
                       <Card className="card-lift--hover shadow border-0">
                         <CardBody className="py-5">
@@ -320,13 +334,44 @@ class Landing extends React.Component {
                 </Col>
               </Row>
             </Container>
+           <div style={{width:"100%",display:"flex",justifyContent:"center"}} >
+           <Lottie style={{width:"100px",height:"180px"}}  animationData={bottomArrow}  />
+           </div>
+          </section>
+
+          <section  style={{marginBottom:"10px",background:"#f4f5f7",padding:"20px",marginTop:"10px"}} >
+<Container>
+
+<Row  className="row-grid align-items-center" >
+
+<Col  className="order-md-2" md="5" style={{display:"flex",justifyContent:"center",alignContent:"center"}} >
+<div  className="vid-wrapper"  >
+  <iframe style={{borderRadius:"10px"}} width="360" height="350" src="https://www.youtube.com/embed/q83Kv6L2STs?si=MONQnYSzhSo3pmnf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+
+</Col>
+
+<Col className="order-md-1" md="7" >
+<h3>What is Mentor Bro ? How we can help you ?</h3>
+
+<p>Mentor Bro is a mentorship program for technology students. 
+  We provide a full-stack development course with mentorship from industry experts at one of the most affordable fees in the entire education industry.
+   You can learn more about Mentor Bro by watching the attached video.</p>
+
+</Col>
+
+</Row>
+
+</Container>
+            
+
           </section>
 
 
 
 
 
-          <section className="section section-lg">
+          <section className="section section-lg section-two"  >
             <Container>
               <Row className="row-grid align-items-center">
                 <Col className="order-md-2" md="6">
@@ -450,11 +495,12 @@ class Landing extends React.Component {
               <Row className="row-grid align-items-center">
                 <Col md="6">
                   <Card className="bg-default shadow border-0">
-                    <CardImg
+                    {/* <CardImg
                       alt="..."
                       src={require("assets/img/theme/man-5723449_1920.jpg")}
                       top
-                    />
+                    /> */}
+                    <Lottie  width={"100px"} animationData={thinkInTable} />
                     <blockquote className="card-blockquote">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -484,15 +530,18 @@ class Landing extends React.Component {
                 </Col>
                 <Col md="6">
                   <div className="pl-md-5">
-                    <div className="icon icon-lg icon-shape icon-shape-warning shadow rounded-circle mb-5">
-                      <i className="ni ni-settings" />
+                    {/* <div className="icon icon-lg icon-shape icon-shape-warning shadow rounded-circle mb-5">
+                    <i className="ni ni-settings" /> 
+                    </div> */}
+                    <div>
+                    <Lottie animationData={WhoAreWe} />
                     </div>
                     <h3>Who Are We?</h3>
                     <p className="lead">
                     We’re not just mentors; we’re your partners in growth, progress, and achievement
                     </p>
                     <p>
-                    At Your Mentor Bro, we specialize in helping individuals rediscover their passion for coding and career development
+                    At  Mentor Bro, we specialize in helping individuals rediscover their passion for coding and career development
                     </p>
                     <p>
                     Our mission is simple: to equip you with the skills, confidence, and mindset needed to forge a successful path in today’s competitive world.
@@ -508,24 +557,124 @@ class Landing extends React.Component {
 
 
      
-          {/* <section className="section section-lg">
+          <section className="section section-lg section-one"  style={{marginBottom:"0px"}} >
             <Container>
               <Row className="justify-content-center text-center mb-lg">
                 <Col lg="8">
-                <h2 className="display-3">Faculties of Mentor Bro</h2>
-<p className="lead text-muted">
-  Our faculties are currently employed at various reputable companies. Below are the foundational members of Mentor Bro who shape its vision and mission.
-</p>
+            
+                  
+<div  className="container" style={{display:"flex",justifyContent:"center"}} >
+<div  className="lottie-cards"   >
+  <Lottie  animationData={howToJoin_Ani} />
 
+  </div>
+</div>
+
+<h2 className="display-3">How to Join Mentor Bro</h2>
+
+{/* Step 1 */}
+
+<div  className="container  step-box " >
+
+ <div  className="lottie-content-wrap" >
+  
+<div >
+  <Lottie  style={{width:"130px",height:"130px"}}  animationData={filltheform_Ani} />
+  </div>
+<div>
+<h3 >Step 1 : Fill the <a href="#formContact" >form</a> </h3>
+<p>Visit the website & fill out the form with your interested course and contact details.</p>
+</div>
+ </div>
+</div>
+
+{/* step 2 */}
+
+<div  className="container step-box"  >
+
+ <div  className="lottie-content-wrap"   >
+  
+<div    >
+  <Lottie style={{width:"150px",height:"150px"}}  animationData={weWillCallYouBack_Ani} />
+  </div>
+<div>
+<h3 >Step 2 : Recieve a Callback </h3>
+<p>Our Course Expert will Contact you back between 10 AM – 7 PM.</p>
+</div>
+ </div>
+</div>
+
+{/*  */}
+                  
+
+
+<div  className="container step-box"  >
+
+ <div  className="lottie-content-wrap"   >
+  
+<div >
+  <Lottie style={{width:"200px",height:"200px"}} animationData={Entroll_Ani} />
+  </div>
+<div>
+<h3 >Step 3 : Enroll </h3>
+<p>Explore our Course details, Fee details and get onboard with us.</p>
+</div>
+ </div>
+</div>
 
 
                 </Col>
               </Row>
-              <Row  className="faculty-box"   >
-
-              </Row>
             </Container>
-          </section> */}
+          </section>
+
+{/* Get Ready For Interview section */}
+
+<section  className="section section-lg section-interview" >  
+
+
+<Container>
+<Row>
+  <Col>
+  <div>
+  <Lottie  style={{width:"400px",height:"400px"}} animationData={communicationLottie} /> 
+</div>
+  </Col>
+  <Col>
+  <h2>Get Ready For Interview</h2>
+  <h6>Master key skills, boost confidence, and ace your next job interview with expert tips and guidance.</h6>
+  <ul>
+    <li> Resume preparation  </li>
+    <li> Prepare answers for common questions.  </li>
+    <li> Job Application Guidance  </li>
+    <li> Mock HR interviews  </li>
+    <li> Mock Technical interviews  </li>
+  </ul>
+  </Col>
+</Row>
+<Row  className="row-video" >
+  <Col> 
+  <div  className="vid-wraper" >
+  <iframe width="360" height="350" src="https://youtube.com/embed/tFtz7i3-9RM?si=OpABzOJrpJmgXgT4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+  </Col>
+  <Col>
+  <div className="vid-wraper" >
+  <iframe width="360" height="350" src="https://youtube.com/embed/VweJA6kwnbk?si=Wd8DUd819HEqB9-G" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+  </Col>
+  <Col>
+  <div className="vid-wraper" >
+  <iframe width="360" height="350" src="https://youtube.com/embed/T1PeVldiT2A?feature=share" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+  </Col>
+</Row>
+</Container>
+
+
+</section>
+
+
           
           <section className="section section-lg bg-gradient-default">
             <Container className="pt-lg pb-300">
@@ -585,12 +734,13 @@ class Landing extends React.Component {
               </svg>
             </div>
           </section>
-          <section className="section section-lg pt-lg-0 section-contact-us">
+
+          <section className="section section-lg pt-lg-0 section-contact-us"   >
             <Container>
               <Row className="justify-content-center mt--300">
                 <Col lg="8">
                   <Card className="bg-gradient-secondary shadow">
-                    <CardBody className="p-lg-5">
+                    <CardBody className="p-lg-5" id="formContact">
                       <h4 className="mb-1">Want to Contact with us?</h4>
                       <p className="mt-0">
                        Fill the form we will reach out to you very shortly
@@ -664,8 +814,17 @@ class Landing extends React.Component {
                           color="default"
                           size="lg"
                           type="button"
+                          style={{display:"flex",justifyContent:"center"}}
                         >
-                          Send Message
+                          {
+                            this.state.showLoader?(
+                              <Spinner/>
+                            ):(
+                             
+                              <span> Submit</span>
+                            )
+                          }
+                         
                         </Button>
                       </div>
                     </CardBody>

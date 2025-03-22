@@ -8,10 +8,45 @@
     }
 }
 
-.career-card     h2{
-    // text-align: center;
-    padding: 15px;
+
+.card-wraper{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 5px;
+    p{
+        font-size: 14px;
+    }
+
+    .shadow-sm{
+        border: 1px solid #1e407c !important;
+        border-radius: 5px;
+    }
+    button{
+        background-color: #1e407c;
+        border: none;
+    }
+}
+
+.lottie-career{
+    width: 80px;
+    height: 80px;
+  }
+  .lottie-wrap{
+    display: flex;
+    align-items: center;
     width: 100%;
-    font-size: 1.2rem;
-    font-weight: 600;
+    margin-bottom: 25px;
+  }
+
+@media(max-width:1000px){
+    .card-wraper{
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+
+@media(max-width:600px){
+    .card-wraper{
+        grid-template-columns: repeat(1,1fr);
+    }
 }

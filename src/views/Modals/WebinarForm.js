@@ -3,9 +3,12 @@ import { Modal, Button, Form } from "react-bootstrap";
 import Select from "react-select";
 import toast from "react-hot-toast";
 import axios from 'axios';
+import Spinner from 'components/Spinners/Spinner';
+import { socailMediaLinks } from 'assets/data-sets/socialMedia';
 const   WebinarForm = ()=> {
 
-
+  const [webinarStatus,setWebinarStatus] = useState(false);
+   
     const options = [
         { value: "1", label: "Post Graduation" },
         { value: "2", label: "Under Graduation" },
@@ -13,17 +16,33 @@ const   WebinarForm = ()=> {
         { value: "4", label: "High School Or Below" },
       ];
 
+      const webinarsList = [
+        {value:"C Programming Webinar",label:"C Programming Webinar"},
+        {value:"Mern Stack Webinar",label:"Mern Stack Webinar"},
+        {value:"Mean Stack Webinar",label:"Mean Stack Webinar"},
+        {value:"Python Django Webinar",label:"Python Django Webinar"},
+      ]
+
 
     const [show, setShow] = useState(false);
     const [Name, setName] = useState("");
     const [Mobile, setMobile] = useState("");
     const [education,setEducation] = useState("");
-    const [date,setDate] = useState("");
+    const [email,setEmail] = useState("");
+    const [webinar,setWebinar] = useState("");
+    const [showLoader,setShowLoader] = useState(false);
   
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
   
     const handleSave = async() => {
+
+
+if(webinarStatus==false){
+ toast.error("Currently we are not hosting any Webinar ! ,Please contact us to know more.");
+ return
+}
+
 
       let headers = new Headers();
 
@@ -41,9 +60,10 @@ const formData = new FormData();
 formData.append("Name", Name);
 formData.append("Mobile", Mobile);
 formData.append("Education", Education);
-formData.append("Date", date);
+formData.append("Webinar",webinar)
+
    
-      const query = `Name=${Name}&Mobile=${Mobile}&Education=${Education}&Date=${date}&page=2`
+      const query = `Name=${Name}&Mobile=${Mobile}&Education=${Education}&page=2&webinar=${webinar}&Email=${email}&Date=${new Date()}`
       if (!Name) {
         toast.error("Name is required");
         return;
@@ -52,14 +72,16 @@ formData.append("Date", date);
         toast.error("Valid 10 digit mobile number is required");
         return;
       }
-      const url = "https://script.google.com/macros/s/AKfycbwH02_gLAZixrWZjeP44SElEik36ny9vqb77r8wxeyNCd0Tlho1oCiN4PA0rP7DWxG-EQ/exec"
-
+      setShowLoader(true)
+     // const url = "https://script.google.com/macros/s/AKfycbwH02_gLAZixrWZjeP44SElEik36ny9vqb77r8wxeyNCd0Tlho1oCiN4PA0rP7DWxG-EQ/exec"
+      const url  = socailMediaLinks.webinarGoogleSheetLink;
       await axios.post(`${url}?${query}`,formData,
         { headers: headers}
       ).then((res)=>{
+      
         toast.success("Your Response Recorded");
       })
-     
+      setShowLoader(false)
       setShow(false);
 
     }
@@ -80,12 +102,20 @@ formData.append("Date", date);
                         </Button>
 
       {/* Modal */}
+
+
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header >
           <Modal.Title>Book your free webinar</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
+
+          <Form.Group className="mb-3" controlId="formBrandDescription">
+                <Form.Label>Webinar</Form.Label>
+                <Select options={webinarsList}   defaultValue={webinar} onChange={(e)=>setWebinar(e.value)}   placeholder="Choose webinar" />
+                </Form.Group>
+
             <Form.Group className="mb-3" controlId="formBrandName">
               <Form.Label> Name</Form.Label>
               <Form.Control
@@ -105,20 +135,22 @@ formData.append("Date", date);
               />
             </Form.Group>
 
+            <Form.Group className="mb-3" controlId="formBrandDescription">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                placeholder="Enter your 10 digit mobile number"
+                value={email}
+                type='text'
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Form.Group>
+
                 <Form.Group className="mb-3" controlId="formBrandDescription">
-                <Form.Label>Education (optional)</Form.Label>
+                <Form.Label>Education Qualification</Form.Label>
                 <Select options={options}   defaultValue={education} onChange={(e)=>setEducation(e.value)}   placeholder="Choose" />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBrandDescription">
-              <Form.Label>Date (Conducting Every Satuaday ,Sunday in a Month )  </Form.Label>
-              <Form.Control
-                placeholder="Enter your 10 digit mobile number"
-                value={date}
-               type='date'
-                onChange={(e) => setDate(e.target.value)}
-              />
-            </Form.Group>
+        
 
                 
             
@@ -129,7 +161,15 @@ formData.append("Date", date);
             Cancel
           </Button>
           <Button variant="primary" onClick={handleSave}>
-            Save
+
+            {
+              showLoader?(
+                <Spinner/>
+              ):
+              (
+                <span>Save</span>
+              )
+            }
           </Button>
         </Modal.Footer>
       </Modal>

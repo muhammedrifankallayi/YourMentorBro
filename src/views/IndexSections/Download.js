@@ -6,7 +6,7 @@ class Download extends React.Component {
   render() {
     return (
       <>
-        <section className="section section-lg">
+        <section className="">
           <Container>
             <Row className="row-grid justify-content-center">
               <Col className="text-center" lg="8">

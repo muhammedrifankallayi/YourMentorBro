@@ -12,7 +12,6 @@ import "assets/scss/argon-design-system-react.scss?v1.1.0";
 import Index from "views/Index.js";
 import Landing from "views/examples/Landing.js";
 import Login from "views/examples/Login.js";
-import Profile from "views/examples/Profile.js";
 import Register from "views/examples/Register.js";
 import AboutUs from "views/examples/AboutUs";
 import { Toaster } from 'react-hot-toast';
@@ -22,6 +21,10 @@ import { Button } from "reactstrap";
 import Careers from "views/examples/Careers";
 import ContactUs from "views/examples/ContactUs";
 import CourseDetails from "views/examples/CourseDetails";
+import Spinner from "components/Spinners/Spinner";
+import Resourse from "views/examples/Resourse/Resourse";
+import JobApply from "views/examples/JobApplyForm/JobApply";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 
@@ -41,16 +44,19 @@ root.render(
                     <i className="fa fa-whatsapp"  style={{fontSize:"30px"}} />
                   </span>
                 </Button>
+               
     <Routes>
       <Route path="/" exact element={<Landing />} />
       <Route path="/landing-page" exact element={<Index />} />
       <Route path="/about-us" exact element={<AboutUs />} />
       <Route path="/login-page" exact element={<Login />} />
-      <Route path="/profile-page" exact element={<Profile />} />
       <Route path="/register-page" exact element={<Register />} />
       <Route path="/careers" exact element={<Careers />} />
       <Route path="/contact-us" exact element={<ContactUs />} />
       <Route path="/courses" exact element={<CourseDetails/>}  />
+      <Route path="/resourses" exact element={<Resourse/>}  />
+      <Route path="/job-apply" exact element={<JobApply/>}  />
+      <Route path="/job-apply/:id" exact element={<JobApply/>}  />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   </BrowserRouter>
