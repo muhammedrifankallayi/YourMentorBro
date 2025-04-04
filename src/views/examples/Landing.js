@@ -43,6 +43,8 @@ import Download from "../IndexSections/Download.js";
 import toast from "react-hot-toast";
 import Spinner from "components/Spinners/Spinner";
 import Lottie from "lottie-react";
+import { Helmet } from "react-helmet";
+import { socailMediaLinks } from "assets/data-sets/socialMedia";
 
 class Landing extends React.Component {
 
@@ -103,7 +105,7 @@ class Landing extends React.Component {
 
     this.setState({showLoader:true})
     
-    const url = "https://script.google.com/macros/s/AKfycbwH02_gLAZixrWZjeP44SElEik36ny9vqb77r8wxeyNCd0Tlho1oCiN4PA0rP7DWxG-EQ/exec"
+    const url = socailMediaLinks.contactusGoogleSheetLink
     
     await axios.post(`${url}?Name=${Name}&Mobile=${Mobile}&Email=${Email}&page=1`,formData,
       { headers: headers}
@@ -179,6 +181,12 @@ class Landing extends React.Component {
   render() {
     return (
       <>
+    <Helmet>
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/favicon-96x96.png" sizes="96x96" />
+    <title>Mentor Bro</title>
+    <meta name="description" 
+content="Mentor Bro is a leading software training institute offering affordable online courses in web development and app development. Learn coding the easy way with expert industry mentors." />
+    </Helmet>
         <div className="spinner-top">
           {this.state.showLoader && <Spinner />}
         </div>
@@ -628,6 +636,33 @@ class Landing extends React.Component {
             </Container>
           </section>
 
+          <section  className="section section-lg section-interview" style={{backgroundColor:"#f1f1f1cc"}} >
+          <Container>
+          <Row  className="row-grid"  style={{flexDirection:"row-reverse"}} >
+
+
+
+<Col className="order-md-1" md="7" >
+<h1>What is the Fee Structure at MentorBro?</h1>  
+
+<p>MentorBro offers courses at highly competitive and affordable prices, ensuring accessibility for all learners. Our programs are designed with a proven industry-relevant syllabus, helping students gain practical skills and expertise. With a commitment to quality education, we provide structured learning paths that align with current industry demands.</p>
+
+</Col>
+
+<Col  className="order-md-2" md="5" style={{display:"flex",justifyContent:"center",alignContent:"center"}} >
+<div  className="vid-wrapper"  >
+  <iframe style={{borderRadius:"10px"}} width="300" height="310" src="https://www.youtube.com/embed/NHaTNA8c7s8?si=YrG_JjIn3kbHM0p5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+
+</Col>
+
+</Row>
+          </Container>
+            </section>  
+
+
+
+
 {/* Get Ready For Interview section */}
 
 <section  className="section section-lg section-interview" >  
@@ -760,7 +795,7 @@ class Landing extends React.Component {
                             placeholder="Your name"
                             type="text"
                             name="Name"
-                          
+                           
                             onFocus={(e) =>
                               this.setState({ nameFocused: true })
                             }
@@ -768,6 +803,7 @@ class Landing extends React.Component {
                               this.setState({ nameFocused: false })
                             }
                             onChange={this.handleChange}
+                            value={this.state.Name}
                           />
                         </InputGroup>
                       </FormGroup>
@@ -793,6 +829,7 @@ class Landing extends React.Component {
                               this.setState({ emailFocused: false })
                             }
                             onChange={this.handleChange}
+                            value={this.state.Email}
                           />
                         </InputGroup>
                       </FormGroup>
@@ -803,7 +840,7 @@ class Landing extends React.Component {
                           name="Mobile"
                           placeholder="Mobile"
                           onChange={this.handleChange}
-                          
+                          value={this.state.Mobile}
                       
                         />
                       </FormGroup>

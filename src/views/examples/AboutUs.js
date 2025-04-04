@@ -225,6 +225,12 @@ we specialize in helping individuals rediscover their passion for coding and car
         <img src={require("../../assets/img/reviewer-img/siraj.jpeg")} alt="Tutor"></img>
         <h2>Siraj</h2>
       </div>
+
+      
+      <div class="tutor-card">
+        <img src={require("../../assets/img/about-us/user-dummy.png")} alt="Tutor"></img>
+        <h2>Suhail</h2>
+      </div>
     </div>
   </div>
 </section>

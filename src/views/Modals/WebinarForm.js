@@ -138,7 +138,7 @@ formData.append("Webinar",webinar)
             <Form.Group className="mb-3" controlId="formBrandDescription">
               <Form.Label>Email</Form.Label>
               <Form.Control
-                placeholder="Enter your 10 digit mobile number"
+                placeholder="Enter your email"
                 value={email}
                 type='text'
                 onChange={(e) => setEmail(e.target.value)}

@@ -30,7 +30,7 @@ class Download extends React.Component {
               
                     <Col lg="2" xs="4">
                       <a
-                        href="https://www.creative-tim.com/product/argon-design-system-react?ref=adsr-landing-page"
+                        
                         id="tooltip308866163"
                         target="_blank"
                       >
@@ -47,7 +47,7 @@ class Download extends React.Component {
                     </Col>
                     <Col lg="2" xs="4">
                       <a
-                        href="https://www.creative-tim.com/product/argon-design-system-angular?ref=adsr-landing-page"
+                      
                         id="tooltip233150499"
                         target="_blank"
                       >
@@ -64,7 +64,7 @@ class Download extends React.Component {
              
                     <Col lg="2" xs="4"   style={{display:"flex",justifyContent:"center",alignItems:"center"}} >
                       <a
-                        href="https://www.creative-tim.com/product/argon-design-system-react?ref=adsr-landing-page"
+                     
                         id="tooltip646643508"
                         target="_blank"
                       >

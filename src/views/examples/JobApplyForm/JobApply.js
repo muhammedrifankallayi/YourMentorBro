@@ -89,6 +89,8 @@ const apply = async(e)=>{
 
       setShowSpinner(true)
 
+      
+
 await axios.post(`${url}?Name=${name}&Mobile=${mobile}&Email=${email}&Date=${currDate}&CoverLetter=${coverletter}&file=${base64String}&fileName=${cv.name}&mimeType=${cv.type}`,formData,
   { headers: headers}
 ).then((res)=>{

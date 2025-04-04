@@ -1,5 +1,5 @@
 import DemoNavbar from 'components/Navbars/DemoNavbar'
-import React from 'react'
+import React, { useState } from 'react'
 import "./ContactUs.css"
 import classnames from "classnames";
 import {
@@ -18,8 +18,69 @@ import {
   } from "reactstrap";
 import CardsFooter from 'components/Footers/CardsFooter';
 import { socailMediaLinks } from 'assets/data-sets/socialMedia';
+import toast from 'react-hot-toast';
+import axios from 'axios';
+import Spinner from 'components/Spinners/Spinner';
 
 function ContactUs() {
+
+  const [Name,setName] = useState("")
+  const [Mobile,setMobile] = useState("")
+  const [Email,setEmail] = useState("")
+  const [showLoader,setShowLoader] = useState(false)
+
+
+
+ const  handleSubmit  =  async(e) => {
+    e.preventDefault();
+
+
+    let headers = new Headers();
+    
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    
+    headers.append('GET', 'POST', 'OPTIONS');
+    
+    const formData = new FormData();
+    formData.append("Name", Name);
+    formData.append("Mobile", Mobile);
+    formData.append("Email", Email);
+    
+    
+    if (!Name) {
+      toast.error("Name is required");
+      return;
+    }
+    if (!Mobile || !/^\d{10}$/.test(Mobile)) {
+      toast.error("Valid 10 digit mobile number is required");
+      return;
+    }
+    if (!Email || !/\S+@\S+\.\S+/.test(Email)) {
+      toast.error("Valid email is required");
+      return;
+    }
+
+    setShowLoader(true)
+    
+    const url = socailMediaLinks.contactusGoogleSheetLink
+    
+  try {
+    await axios.post(`${url}?Name=${Name}&Mobile=${Mobile}&Email=${Email}&page=1`, formData, { headers: headers });
+    setShowLoader(false);
+    setName("");
+    setEmail("");
+    setMobile("");
+    toast.success("Your response has been sent, our team will contact you shortly");
+  } catch (error) {
+    setShowLoader(false);
+    toast.error("There was an error sending your response. Please try again.");
+  }
+  }
+
   return (
   <div>
 
@@ -96,7 +157,8 @@ function ContactUs() {
                             placeholder="Your name"
                             type="text"
                             name="Name"
-                          
+                            value={Name}
+                            onChange={(e) => setName(e.target.value)}
                           
                           />
                         </InputGroup>
@@ -114,6 +176,8 @@ function ContactUs() {
                             placeholder="Email address"
                             name="Email"
                             type="email"
+                            value={Email}
+                            onChange={(e) => setEmail(e.target.value)}
                           
                           />
                         </InputGroup>
@@ -124,8 +188,8 @@ function ContactUs() {
                           cols="80"
                           name="Mobile"
                           placeholder="Mobile"
-                       
-                          
+                          value={Mobile}      
+                          onChange={(e) => setMobile(e.target.value)}
                       
                         />
                       </FormGroup>
@@ -136,8 +200,16 @@ function ContactUs() {
                           color="default"
                           size="lg"
                           type="button"
+                            onClick={handleSubmit}
                         >
-                          Send Message
+                         {
+                                                     showLoader?(
+                                                       <Spinner/>
+                                                     ):(
+                                                      
+                                                       <span> Submit</span>
+                                                     )
+                                                   }
                         </Button>
                       </div>
                     </CardBody>
