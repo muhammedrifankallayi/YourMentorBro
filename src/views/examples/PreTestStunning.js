@@ -47,7 +47,7 @@ const [visibleCards, setVisibleCards] = useState(new Set());
   };
     
   return (
-    <div>
+    <div   className='main-body' >
 
 
    <section class="hero">

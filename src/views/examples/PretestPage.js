@@ -59,10 +59,10 @@ class PretestPage extends React.Component {
       }
     }));
   };  educationOptions = [
-    { value: "postgrad", label: "Post Graduation" },
-    { value: "undergrad", label: "Under Graduation" },
-    { value: "plusTwo", label: "Plus Two" },
-    { value: "highSchool", label: "High School" }
+   { value: "plus Two Commerce", label: "Plus Two (Commerce)" },
+    { value: "plus Two Science", label: "Plus Two (Science)" },
+   { value: "plusTwo Two Humanties", label: "Plus Two (Humanties)" },
+   { value: "under Graduation", label: "Under Graduation" },
   ];
 
   communicationOptions = [
