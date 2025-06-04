@@ -1,5 +1,5 @@
 import DemoNavbar from 'components/Navbars/DemoNavbar'
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import {jobs} from "../../../assets/data-sets/jobs_data"
 import "./JobApply.scss"
 import { CardFooter } from 'reactstrap'
@@ -27,7 +27,9 @@ const job = jobs.find(x=>x.id==id)
 
 
 
-
+useEffect(()=>{
+  window.scrollTo({ top: 0, behavior: 'instant' });
+},[])
 
 
 

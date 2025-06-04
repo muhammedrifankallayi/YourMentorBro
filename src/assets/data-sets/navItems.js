@@ -23,6 +23,12 @@ export const navItems = [
         name:"About us",
         url:"/about-us",
     },
+    {
+
+        name:"After +2",
+        url:"https://after-pluse-two-mentor-bro.netlify.app/"
+
+    }
 
 
   

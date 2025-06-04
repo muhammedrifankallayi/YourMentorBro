@@ -1,4 +1,3 @@
-
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
@@ -24,6 +23,7 @@ import CourseDetails from "views/examples/CourseDetails";
 import Spinner from "components/Spinners/Spinner";
 import Resourse from "views/examples/Resourse/Resourse";
 import JobApply from "views/examples/JobApplyForm/JobApply";
+import PretestPage from "views/examples/PretestPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -55,6 +55,7 @@ root.render(
       <Route path="/contact-us" exact element={<ContactUs />} />
       <Route path="/courses" exact element={<CourseDetails/>}  />
       <Route path="/resourses" exact element={<Resourse/>}  />
+      <Route path="/pre-test" exact element={<PretestPage/>}  />
       <Route path="/job-apply" exact element={<JobApply/>}  />
       <Route path="/job-apply/:id" exact element={<JobApply/>}  />
       <Route path="*" element={<Navigate to="/" replace />} />

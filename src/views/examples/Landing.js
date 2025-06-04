@@ -233,7 +233,12 @@ content="Mentor Bro is a leading software training institute offering affordable
                       </p>
                       <div className="btn-wrapper">
                         <ContactForm isOpen={this.showContactModal} onClose={this.toggleContactModal} />
-                        <WebinarForm isOpen={this.showModal} onClose={this.toggleModal} />
+                        {/* <WebinarForm isOpen={this.showModal} onClose={this.toggleModal} /> */}
+                        <Button   onClick={()=>window.location.href = '/pre-test'} >       
+                          <span className="btn-inner--icon mr-1">
+                            <i className="ni ni-hat-3" />
+                          </span>  Appy For Pre-test
+                          </Button>
                       </div>
                     </Col>
                     <Col  lg="6" >
