@@ -3,9 +3,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import './PreTestStunning.css'; // Import your CSS styles
 
 function PreTestStunning({ onClickBtn }) {
-const [visibleCards, setVisibleCards] = useState(new Set());
+  const [visibleCards, setVisibleCards] = useState(new Set());
   const journeyRef = useRef(null);
   const cardsRef = useRef([]);
+  const iframeRef = useRef(null);
 
   // Smooth scroll handler
   const handleCTAClick = () => {
@@ -37,6 +38,35 @@ const [visibleCards, setVisibleCards] = useState(new Set());
     return () => observer.disconnect();
   }, []);
 
+  // Scroll handler for video muting
+  useEffect(() => {
+    const handleScroll = () => {
+      if (iframeRef.current) {
+        const rect = iframeRef.current.getBoundingClientRect();
+        const isVisible = (
+          rect.top >= 0 &&
+          rect.bottom <= window.innerHeight
+        );
+        
+        // Get the current src
+        const currentSrc = iframeRef.current.src;
+        
+        if (!isVisible) {
+          // Add mute parameter if not visible
+          if (!currentSrc.includes('&mute=1')) {
+            iframeRef.current.src = currentSrc + '&mute=1';
+          }
+        } else {
+          // Remove mute parameter if visible
+          iframeRef.current.src = currentSrc.replace('&mute=1', '');
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   // Activity hover handlers
   const handleActivityMouseEnter = (e) => {
     e.target.style.transform = 'translateX(10px) scale(1.02)';
@@ -56,12 +86,47 @@ const [visibleCards, setVisibleCards] = useState(new Set());
             <div class="header-content">
                 <div class="logo">🚀 Skill First Approach</div>
               <div>
-                  <a class="cta-button download-btn"  href={require("../../assets/Notes/🧠 Course Details.docx")} download={"Mentor Bro Pre-test"} title='Dowload pre-test details'  >Dowload Pdf</a>
+                  {/* <a class="cta-button download-btn"  href={require("../../assets/Notes/🧠 Course Details.docx")} download={"Mentor Bro Pre-test"} title='Dowload pre-test details'  >Dowload Pdf</a> */}
                 <button class="cta-button"   onClick={()=>onClickBtn()} >Start Your Journey</button>
               </div>
             </div>
         </div>
     </header>
+    
+<section class="mentor-section">
+  <div class="container">
+    <div class="content-wrapper">
+      <div class="text-content">
+        <h2 style={{textAlign:"left"}}  >What is the Pre-Test and How Will It Help You?</h2>
+        <p>
+         The Pre-Test is a structured learning and evaluation program designed to 
+         prepare you for a career in technology by building your foundational coding and 
+         problem-solving skills. It simulates real-world technical challenges and 
+         communication scenarios to assess and improve your readiness.
+        </p>
+      </div>
+      <div class="video-content">
+        <div class="video-container">
+          <iframe 
+          ref={iframeRef}
+          src="https://www.youtube.com/embed/FQjmFOFmytY?si=ZTK7lremUkA_0Ttk"
+            title="What is Mentor Bro ?"
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+          <div class="video-overlay">
+            <div class="play-button">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M8 5v14l11-7z" fill="white"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
         <div class="container">
             <div class="hero-content">
                 <h1   className='gradient-heading'  >Pre-Test Journey</h1>
@@ -232,6 +297,32 @@ const [visibleCards, setVisibleCards] = useState(new Set());
             </div>
         </div>
     </footer>
+
+
+
+    
+<div class="support-page">
+  <div class="container">
+    <div class="content-card">
+      <div class="header">
+
+        <h1>Don't have Laptop or Facing Financial issue for higher studies ?</h1>
+      </div>
+      
+      <div class="description">
+        <p>We understand that some students may not have access to a personal laptop or may be going through financial challenges. This can make it difficult to practice coding or attend sessions regularly.</p>
+      </div>
+      
+      
+      <div class="reminder">
+
+        <div class="rem"    >
+          <strong>Reminder:</strong> Your financial situation should never stop your growth. Stay committed — there's always a way forward. <a href='/contact-us'>Connect with us!</a> Maybe we can help you.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
   
     </div>
   )

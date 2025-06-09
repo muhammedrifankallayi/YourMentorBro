@@ -21,6 +21,8 @@ import CardsFooter from "components/Footers/CardsFooter.js";
 import "./PretestPage.css";
 import PreTestStunning from "./PreTestStunning";
 import axios from "axios";
+import toast from "react-hot-toast";
+import Spinner from "components/Spinners/Spinner";
 
 class PretestPage extends React.Component {
   state = {
@@ -35,7 +37,8 @@ class PretestPage extends React.Component {
       isAvailable: '',
       communicationLevel: '',
       codingExperience: ''
-    }
+    },
+    loading: false
   };
 
   componentDidMount() {
@@ -59,10 +62,11 @@ class PretestPage extends React.Component {
       }
     }));
   };  educationOptions = [
-   { value: "plus Two Commerce", label: "Plus Two (Commerce)" },
-    { value: "plus Two Science", label: "Plus Two (Science)" },
-   { value: "plusTwo Two Humanties", label: "Plus Two (Humanties)" },
+    { value: "plus Two science", label: "Plus Two (Science)" },
+    { value: "plus Two Science", label: "Plus Two (Computer Science)" },
+   { value: "plus Two Commerce", label: "Plus Two (Computer Commerce)" },
    { value: "under Graduation", label: "Under Graduation" },
+   { value: "Other", label: "Other" },
   ];
 
   communicationOptions = [
@@ -132,7 +136,7 @@ class PretestPage extends React.Component {
     
     headers.append('GET', 'POST', 'OPTIONS');
 
-    try {
+this.setState({ loading: true });
       // Submit form data to your API endpoint
       const apiUrl = 'https://script.google.com/macros/s/AKfycbwC4bty5u6rLZPXCQN2okIBsE284jER3PErCr7AL7GtQF-kZcL3ZRokbz5z9E9PVco5/exec';
 const formDatas = new FormData();
@@ -156,8 +160,8 @@ const apiUrlWithParams = `${apiUrl}?${params}`;
         });
 
 
-      if (response.ok) {
-        alert('Registration successful! We will contact you shortly.');
+      if (response) {
+       toast.success('Registration successful! We will contact you soon.');
         this.setState({
           formData: {
             name: '',
@@ -169,16 +173,15 @@ const apiUrlWithParams = `${apiUrl}?${params}`;
             isAvailable: '',
             communicationLevel: '',
             codingExperience: ''
-          }
+          },
+          loading: false
         });
         this.toggle();
       } else {
+        this.setState({ loading: false });
         throw new Error('Registration failed');
       }
-    } catch (error) {
-      alert('An error occurred. Please try again later.');
-      console.error('Form submission error:', error);
-    }
+    
   };
 
   render() {
@@ -350,9 +353,10 @@ const apiUrlWithParams = `${apiUrl}?${params}`;
                           </Input>
                         </FormGroup>                        </div>
                         <div className="modal-form-submit">
-                          <Button color="primary" block type="submit">
-                            Submit Application
-                          </Button>
+                  
+                               <Button color="primary" type="submit" style={{ display: "flex",width:"100%" ,justifyContent:"center"}}>
+                                      {this.state.loading ? (<Spinner />) : (<span>Submit Application</span>)}
+                                    </Button>
                         </div>
                       </Form>
                     </ModalBody>

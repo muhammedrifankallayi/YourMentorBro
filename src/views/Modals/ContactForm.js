@@ -109,7 +109,7 @@ toast.success("Your response send !")
               <Form.Control
                 placeholder="Enter your 10 digit mobile number"
                 value={Mobile}
-                type='number'
+                type='text'
                 onChange={(e) => setMobile(e.target.value)}
               />
             </Form.Group>

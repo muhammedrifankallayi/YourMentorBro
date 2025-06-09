@@ -25,7 +25,7 @@ export const navItems = [
     },
     {
 
-        name:"After +2",
+        name:"Help Desk",
         url:"https://after-pluse-two-mentor-bro.netlify.app/"
 
     }
