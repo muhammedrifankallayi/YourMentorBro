@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import './PreTestStunning.css'; // Import your CSS styles
+import toast from 'react-hot-toast';
 
 function PreTestStunning({ onClickBtn }) {
   const [visibleCards, setVisibleCards] = useState(new Set());
@@ -66,7 +67,13 @@ function PreTestStunning({ onClickBtn }) {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  const expiredEvent = ()=>{
+    toast.error('This Program has expired. Please check back later for updates or stay in contact with mentorBro for next event', {
+      duration: 5000,
+      position: 'top-center',
+    })
 
+  }
   // Activity hover handlers
   const handleActivityMouseEnter = (e) => {
     e.target.style.transform = 'translateX(10px) scale(1.02)';
@@ -87,7 +94,8 @@ function PreTestStunning({ onClickBtn }) {
                 <div class="logo">🚀 Skill First Approach</div>
               <div>
                   {/* <a class="cta-button download-btn"  href={require("../../assets/Notes/🧠 Course Details.docx")} download={"Mentor Bro Pre-test"} title='Dowload pre-test details'  >Dowload Pdf</a> */}
-                <button class="cta-button"   onClick={()=>onClickBtn()} >Start Your Journey</button>
+                {/* <button class="cta-button"   onClick={()=>onClickBtn()} >Start Your Journey</button> */}
+                <button class="cta-button"   onClick={()=>expiredEvent()} >Start Your Journey</button>
               </div>
             </div>
         </div>

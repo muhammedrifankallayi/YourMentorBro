@@ -689,6 +689,9 @@ function Landing() {
 
 <Col className="order-md-1" md="7" >
 <h1>What is the Fee Structure at MentorBro?</h1>  
+<p>
+  MentorBro offers courses at highly competitive and affordable prices, ensuring accessibility for all learners. Our programs are designed with a proven industry-relevant syllabus, helping students gain practical skills and expertise. With a commitment to quality education, we provide structured learning paths that align with current industry demands
+</p>
 
 </Col>
 

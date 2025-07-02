@@ -55,9 +55,9 @@ At Mentorbro, we don’t just teach – we uplift, inspire, and empower. We beli
 
 
      
-<section   className="top-section container" >
+<section   className="top-section container"   >
 
-<div  className="content-box" >
+<div  className="content-box" style={{padding:"40px 3px",marginTop:"50px",marginBottom:"50px"}} >
 
 <h2 className="display-1 d-flex text-h2" >Who We Are  <Lottie  className="qus-lottie"  animationData={QusMark} />  </h2> 
 
