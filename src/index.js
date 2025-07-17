@@ -24,6 +24,7 @@ import Spinner from "components/Spinners/Spinner";
 import Resourse from "views/examples/Resourse/Resourse";
 import JobApply from "views/examples/JobApplyForm/JobApply";
 import PretestPage from "views/examples/PretestPage";
+import ApplicationForm from "views/examples/ApplicationForm";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -58,6 +59,7 @@ root.render(
       <Route path="/pre-test" exact element={<PretestPage/>}  />
       <Route path="/job-apply" exact element={<JobApply/>}  />
       <Route path="/job-apply/:id" exact element={<JobApply/>}  />
+      <Route path="/application-form" exact element={<ApplicationForm />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   </BrowserRouter>

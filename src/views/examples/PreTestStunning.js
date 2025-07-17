@@ -95,7 +95,7 @@ function PreTestStunning({ onClickBtn }) {
               <div>
                   {/* <a class="cta-button download-btn"  href={require("../../assets/Notes/🧠 Course Details.docx")} download={"Mentor Bro Pre-test"} title='Dowload pre-test details'  >Dowload Pdf</a> */}
                 {/* <button class="cta-button"   onClick={()=>onClickBtn()} >Start Your Journey</button> */}
-                <button class="cta-button"   onClick={()=>expiredEvent()} >Start Your Journey</button>
+                {/* <button class="cta-button"   onClick={()=>expiredEvent()} >Start Your Journey</button> */}
               </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ import React, { useRef, useState, useEffect } from "react";
 import classnames from "classnames";
 import WebinarForm from "views/Modals/WebinarForm.js"; 
 import ContactForm from "views/Modals/ContactForm.js";
+import ApplicationForm from "views/Modals/applicationForm.js";
 import axios from "axios";
 import WhoAreWe from "../../assets/Lottie-Files/whoarewe.json";
 import robo from "../../assets/Lottie-Files/robot.json";
@@ -43,6 +44,7 @@ import Spinner from "components/Spinners/Spinner";
 import Lottie from "lottie-react";
 import { Helmet } from "react-helmet";
 import { socailMediaLinks } from "assets/data-sets/socialMedia";
+import { useNavigate } from 'react-router-dom';
 
 function Landing() {
   // Convert state to useState hooks
@@ -56,11 +58,14 @@ function Landing() {
     nameFocused: false,
     emailFocused: false
   });
+  const [showApplicationModal, setShowApplicationModal] = useState(false);
 
   // Convert refs to useRef
   const mainRef = useRef(null);
   const videoRef = useRef(null);
   const youtubeRefs = [useRef(), useRef(), useRef(), useRef()];
+
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -141,6 +146,15 @@ function Landing() {
       ...prev,
       showContactModal: !prev.showContactModal
     }));
+  };
+
+  const toggleApplicationModal = () => {
+    setShowApplicationModal(!showApplicationModal);
+  };
+
+  const handleEnrollNow = (e) => {
+    e.preventDefault();
+    navigate('/application-form');
   };
 
   // Convert componentDidMount to useEffect
@@ -307,9 +321,9 @@ function Landing() {
                           className="mt-4"
                           color="primary"
                           href="#pablo"
-                          onClick={openGoogleForm}
+                          onClick={handleEnrollNow}
                         >
-                          Enroll Now 
+                          Enroll Now
                         </Button>
                       </CardBody>
                     </Card>
@@ -336,9 +350,9 @@ function Landing() {
                           className="mt-4"
                           color="success"
                           href="#pablo"
-                          onClick={openGoogleForm}
+                          onClick={handleEnrollNow}
                         >
-              Entroll Now
+              Enroll Now
                         </Button>
                       </CardBody>
                     </Card>
@@ -364,9 +378,9 @@ function Landing() {
                           className="mt-4"
                           color="warning"
                           href="#pablo"
-                          onClick={openGoogleForm}
+                          onClick={handleEnrollNow}
                         >
-                          Entroll Now
+                          Enroll Now
                         </Button>
                       </CardBody>
                     </Card>
@@ -950,6 +964,8 @@ function Landing() {
   </Container>
 </section>
 <Download />
+
+
 </main>
 <CardsFooter />
 </>

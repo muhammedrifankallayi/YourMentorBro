@@ -6,12 +6,14 @@ import {CourseData} from "../../assets/data-sets/coursedata"
 import CardsFooter from 'components/Footers/CardsFooter';
 import Lottie from 'lottie-react';
 import course from "../../assets/Lottie-Files/courses.json"
+import { useNavigate } from 'react-router-dom';
 
 
 const CourseDetails = () => {
   const courses = CourseData
 
   const [activeTab, setActiveTab] = useState(0);
+  const navigate = useNavigate();
 
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
@@ -197,6 +199,16 @@ const CourseDetails = () => {
           ))}
         </div>
       </div>
+    </div>
+
+    <div style={{ width: '100%', display: 'flex', justifyContent: 'center', margin: '32px 0' }}>
+      <button
+        style={{ padding: '12px 32px', fontSize: '1.1rem', background: '#1976d2', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px' }}
+        onClick={() => navigate('/application-form')}
+      >
+        Enroll Now
+        <span className="material-symbols-outlined" style={{ fontSize: 22, color: '#fff', verticalAlign: 'middle' }}>arrow_forward</span>
+      </button>
     </div>
 
      <CardsFooter />
